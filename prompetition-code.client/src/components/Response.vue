@@ -1,41 +1,41 @@
 <template>
   <router-link>
-    <div class="row topic-card">
-      <h6 class="topic-date">
-        {{ topic.createdAt.substring(0, 10) }}
+    <div class="row response-card">
+      <h6 class="response-date">
+        {{ response.creator.id }}
       </h6>
       <h4 class="mb-0">
-        {{ topic.body }}
+        {{ response.body }}
       </h4>
     </div>
   </router-link>
 </template>
 
 <script>
-import { Topic } from '../models/Topic'
+import { Response } from '../models/Response'
 export default {
-  name: 'Topic',
+  name: 'Response',
   props: {
-    topic: { type: String, default: () => new Topic() }
+    response: { type: String, default: () => new Response() }
   }
 }
 </script>
 
 <style scoped>
-.topic-card {
+.response-card {
   margin: 2vh;
   padding: 3vh;
   border: 2px solid gray;
   border-radius: 15px;
   font-family: 'Lato', sans-serif;
 }
-.topic-card:hover {
+.response-card:hover {
   cursor: pointer;
   background-color: #8080802c;
   transform: scale(0.9);
   transition: 0.2s ease-in-out;
 }
-.topic-date {
+.response-date {
   color: gray;
 }
 </style>
