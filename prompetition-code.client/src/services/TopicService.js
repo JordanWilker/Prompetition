@@ -13,15 +13,23 @@ class TopicService {
     }
   }
 
-  async getDate() {
+  async getTodaysTopic() {
+    // This method sets AppState.todaysTopic to whatever topic was created today.
     try {
-      const date = new Date()
+      let date = new Date()
+      // Reformatting Date() to be able to match it with createdAt
       const rebuiltDate = {
         year: date.getUTCFullYear(),
         month: date.getUTCMonth().toString()[1] ? date.getUTCMonth() + 1 : '0' + parseInt(date.getUTCMonth() + 1),
         day: date.getDate()
       }
-      AppState.date = rebuiltDate.year + '-' + rebuiltDate.month + '-' + rebuiltDate.day
+      date = rebuiltDate.year + '-' + rebuiltDate.month + '-' + rebuiltDate.day
+      const todaysTopic = AppState.topics.filter(t => t.challengeStartDate.substring(0, 9) === date)[0]
+      if (!todaysTopic) {
+        window.alert('No prompt for today')
+      } else {
+        AppState.todaysTopic = todaysTopic
+      }
     } catch (error) {
       logger.error('Couldnt get date \n', error)
     }

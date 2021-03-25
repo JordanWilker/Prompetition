@@ -3,5 +3,6 @@ export class Topic {
     this.id = data.id || data._id || 'placeholder id'
     this.body = data.body || 'test body'
     this.createdAt = data.createdAt || 'creation date unkown'
+    this.challengeStartDate = data.challengeStartDate || 'challenge start date unknown'
   }
 }
