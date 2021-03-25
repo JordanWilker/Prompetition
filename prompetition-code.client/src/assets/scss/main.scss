@@ -1,7 +1,7 @@
-@import "./_variables.scss";
-@import "bootstrap";
-@import "./_transitions.scss";
-@import "./_overrides.scss";
+@import './_variables.scss';
+@import 'bootstrap';
+@import './_transitions.scss';
+@import './_overrides.scss';
 
 :root {
   --grey: #f6f6f6;
@@ -20,4 +20,11 @@ main {
   flex-grow: 1;
   display: flex;
   align-items: stretch;
+}
+
+.hoverable {
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: none;
 }

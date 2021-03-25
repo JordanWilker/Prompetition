@@ -6,6 +6,7 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .get('/:id', this.getUserProfile)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
   }
@@ -14,6 +15,15 @@ export class AccountController extends BaseController {
     try {
       const account = await accountService.getAccount(req.userInfo)
       res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getUserProfile(req, res, next) {
+    try {
+      const user = await accountService.getAccount({ id: req.params.id })
+      res.send(user)
     } catch (error) {
       next(error)
     }
