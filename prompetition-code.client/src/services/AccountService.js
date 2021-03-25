@@ -21,6 +21,16 @@ class AccountService {
       logger.error(err)
     }
   }
+
+  async editUserName(name) {
+    try {
+      const res = await api.put('account', { name: name })
+      logger.log(res)
+      AppState.account = res.data
+    } catch (err) {
+      logger.error(err)
+    }
+  }
 }
 
 export const accountService = new AccountService()
