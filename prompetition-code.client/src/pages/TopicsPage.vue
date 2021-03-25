@@ -1,5 +1,6 @@
 <template>
   <div class="col-12">
+    <input type="date" name="date" id="date" class="mt-3 rounded p-2 border border-dark">
     <Topic v-for="topic in state.topics" :key="topic.id" :topic="topic" />
   </div>
 </template>
