@@ -1,5 +1,5 @@
 <template>
-  <router-link>
+  <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
     <div class="row topic-card">
       <h6 class="topic-date">
         {{ topic.createdAt.substring(0, 10) }}
@@ -9,6 +9,7 @@
       </h4>
     </div>
   </router-link>
+<!-- Not getting any errors... But also no responses... -->
 </template>
 
 <script>
@@ -16,7 +17,7 @@ import { Topic } from '../models/Topic'
 export default {
   name: 'Topic',
   props: {
-    topic: { type: String, default: () => new Topic() }
+    topic: { type: Object, default: () => new Topic() }
   }
 }
 </script>

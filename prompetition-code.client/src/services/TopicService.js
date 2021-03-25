@@ -1,15 +1,7 @@
-import {
-  AppState
-} from '../AppState'
-import {
-  logger
-} from '../utils/Logger'
-import {
-  api
-} from './AxiosService'
-import {
-  Topic
-} from '../models/Topic'
+import { AppState } from '../AppState'
+import { Topic } from '../models/Topic'
+import { logger } from '../utils/Logger'
+import { api } from './AxiosService'
 
 class TopicService {
   async getTopics() {

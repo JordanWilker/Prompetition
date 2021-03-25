@@ -1,4 +1,4 @@
-export class Topic {
+export class Response {
   constructor(data = {}) {
     this.id = data.id || data._id || 'placeholder id'
     this.body = data.body || 'placeholder body'

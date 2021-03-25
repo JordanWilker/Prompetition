@@ -1,14 +1,15 @@
 <template>
-  <router-link>
-    <div class="row response-card">
-      <h6 class="response-date">
-        {{ response.creator.id }}
-      </h6>
-      <h4 class="mb-0">
+  <div class="row response-card">
+    <h6 class="col-12 response-date">
+      {{ response.creator.name.substring(0, response.creator.name.indexOf('@')) }}
+    </h6>
+    <div class="col-12 d-inline-flex justify-content-between align-items-center">
+      <h5>
         {{ response.body }}
-      </h4>
+      </h5>
+      <i class="fa fa-heart fa-2x text-dark" aria-hidden="true"></i>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -16,7 +17,7 @@ import { Response } from '../models/Response'
 export default {
   name: 'Response',
   props: {
-    response: { type: String, default: () => new Response() }
+    response: { type: Object, default: () => new Response() }
   }
 }
 </script>
@@ -29,13 +30,11 @@ export default {
   border-radius: 15px;
   font-family: 'Lato', sans-serif;
 }
-.response-card:hover {
-  cursor: pointer;
-  background-color: #8080802c;
-  transform: scale(0.9);
-  transition: 0.2s ease-in-out;
-}
 .response-date {
   color: gray;
+}
+.fa-heart:hover {
+  color: var(--danger) !important;
+  transition: 0.2s ease-in-out;
 }
 </style>
