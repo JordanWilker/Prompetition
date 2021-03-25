@@ -26,6 +26,11 @@ const routes = [
     path: '/prompts',
     name: 'Topics',
     component: loadPage('TopicsPage')
+  },
+  {
+    path: '/responses/:topicId',
+    name: 'Responses',
+    component: loadPage('ResponsesPage')
   }
 ]
 

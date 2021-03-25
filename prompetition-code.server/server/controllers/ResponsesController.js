@@ -6,6 +6,7 @@ export class ResponsesController extends BaseController {
   constructor() {
     super('api/responses')
     this.router
+      .get('/:topicId', this.getResponsesByTopicId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createResponse)
@@ -36,6 +37,14 @@ export class ResponsesController extends BaseController {
       req.body.creatorId = req.userInfo.id
       const response = await responsesService.editResponse(req.params.id, req.userInfo.id, req.body)
       res.send(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getResponsesByTopicId(req, res, next) {
+    try {
+      return res.send(await responsesService.getResponsesbyTopicId(req.params.topicId))
     } catch (error) {
       next(error)
     }
