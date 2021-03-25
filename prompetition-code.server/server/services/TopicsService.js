@@ -25,7 +25,7 @@ class TopicsService {
   }
 
   async getDailyChallenge() {
-    const res = dbContext.Topics.find({ active: true })
+    // const res = dbContext.Topics.find({ active: true })
   }
 }
 export const topicsService = new TopicsService()

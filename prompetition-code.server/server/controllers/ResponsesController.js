@@ -1,12 +1,13 @@
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { responsesService } from '../services/ResponsesService'
+import { votesService } from '../services/VotesService'
 
 export class ResponsesController extends BaseController {
   constructor() {
     super('api/responses')
     this.router
-      // .get('/:topicId', this.getResponsesByTopicId)
+      .get('/:id/votes', this.getVotesByResponseId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createResponse)
@@ -42,11 +43,11 @@ export class ResponsesController extends BaseController {
     }
   }
 
-  // async getResponsesByTopicId(req, res, next) {
-  //   try {
-  //     return res.send(await responsesService.getResponsesbyTopicId(req.params.topicId))
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  async getVotesByResponseId(req, res, next) {
+    try {
+      return res.send(await votesService.getVotesByResponseId(req.params.id))
+    } catch (error) {
+      next(error)
+    }
+  }
 }
