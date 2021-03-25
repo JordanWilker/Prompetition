@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col">
         <h1>
+          <!-- TODO: Get and display this user's wins, likes, and practice likes -->
           <span v-if="state.activeUser == account">Welcome</span>
           {{ state.activeUser.name }}
         </h1>
@@ -26,7 +27,6 @@
     <nav class="position-fixed w-100 p-0 bg-dark">
       <ul class="navbar-nav d-flex flex-row p-0 w-100 justify-content-around">
         <li class="nav-item btn btn-dark">
-          <!-- TODO: Replace a with router-link -->
           <a class="nav-link hoverable p-3 px-5" @click="changeState('wins')">
             Wins
           </a>
