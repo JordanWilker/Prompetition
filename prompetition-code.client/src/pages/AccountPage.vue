@@ -27,31 +27,34 @@
     </div>
 
     <div class="row">
-      <div class="col-4">
-        <ul class="text-left list-unstyled">
+      <div class="col">
+        <ul class="list-unstyled">
           <!-- TODO: Get and display this user's wins, likes, and practice likes -->
-          <li class="w-100">
+          <li>
             <span>0</span>
             Daily Wins
           </li>
-          <li class="w-100">
+          <li>
             <span>0</span>
             Competitive Likes
           </li>
-          <li class="w-100">
+          <li>
             <span>0</span>
             Practice Likes
           </li>
         </ul>
       </div>
-      <div class="col-4">
-        <UserWins :user="state.activeUser" v-if="state.pageState == 'wins'" />
+    </div>
+
+    <div class="row">
+      <div class="col-12" v-if="state.pageState == 'wins'">
+        <UserWins :user="state.activeUser" />
       </div>
-      <div class="col-4">
-        <UserSubmissions :user="state.activeUser" v-if="state.pageState == 'submissions'" />
+      <div class="col-12" v-if="state.pageState == 'submissions'">
+        <UserSubmissions :user="state.activeUser" />
       </div>
-      <div class="col-4">
-        <UserPractices :user="state.activeUser" v-if="state.pageState == 'practices'" />
+      <div class="col-12" v-if="state.pageState == 'practices'">
+        <UserPractices :user="state.activeUser" />
       </div>
     </div>
 
@@ -134,7 +137,7 @@ nav {
   left: 0;
 }
 
-li {
+li.nav-item {
   width: 33%
 }
 </style>
