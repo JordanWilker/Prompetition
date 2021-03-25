@@ -23,5 +23,9 @@ class TopicsService {
   async editTopic(id, userId, body) {
     return await dbContext.Topics.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
   }
+
+  async getDailyChallenge() {
+    const res = dbContext.Topics.find({ active: true })
+  }
 }
 export const topicsService = new TopicsService()
