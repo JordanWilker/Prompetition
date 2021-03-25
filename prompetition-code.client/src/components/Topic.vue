@@ -1,14 +1,20 @@
 <template>
-  <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
-    <div class="row topic-card">
-      <h6 class="topic-date">
-        {{ topic.createdAt.substring(0, 10) }}
-      </h6>
-      <h4 class="mb-0">
-        {{ topic.body }}
-      </h4>
-    </div>
-  </router-link>
+  <div class="row d-flex">
+    <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
+      <div class="col-12 topic-card">
+        <div class="row d-flex">
+          <h6 class="topic-date">
+            {{ topic.createdAt.substring(0, 10) }}
+          </h6>
+        </div>
+        <div class="row d-flex">
+          <h4 class="mb-0">
+            {{ topic.body }}
+          </h4>
+        </div>
+      </div>
+    </router-link>
+  </div>
 <!-- Not getting any errors... But also no responses... -->
 </template>
 
@@ -25,6 +31,7 @@ export default {
 <style scoped>
 .topic-card {
   margin: 2vh;
+  margin-left: 0vh;
   padding: 3vh;
   border: 2px solid gray;
   border-radius: 15px;
