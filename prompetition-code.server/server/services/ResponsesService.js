@@ -3,7 +3,7 @@ import { dbContext } from '../db/DbContext'
 
 class ResponsesService {
   async getResponsesbyTopicId(id) {
-    const responses = await dbContext.Responses.findById(id)
+    const responses = await dbContext.Responses.find(id)
     return responses
   }
 
@@ -11,8 +11,12 @@ class ResponsesService {
     return await dbContext.Responses.create(body)
   }
 
-  async deleteResponse(id) {
-    return await dbContext.Responses.findOneAndDelete({ _id: id })
+  async deleteResponse(id, userId) {
+    return await dbContext.Responses.findOneAndDelete({ _id: id, creatorId: userId })
+  }
+
+  async editResponse(id, userId, body) {
+    return await dbContext.Responses.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
   }
 }
 export const responsesService = new ResponsesService()
