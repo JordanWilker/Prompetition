@@ -8,7 +8,7 @@ export class TopicsController extends BaseController {
     super('api/topics')
     this.router
       .get('', this.getTopic)
-      .get(':id/responses')
+      .get('/:id/responses', this.getResponsesbyTopicId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTopic)
@@ -25,7 +25,7 @@ export class TopicsController extends BaseController {
 
   async getResponsesbyTopicId(req, res, next) {
     try {
-      return res.send(await responsesService.getResponsesbyTopicId({ Topic: req.params.id }))
+      return res.send(await responsesService.getResponsesbyTopicId({ topicId: req.params.id }))
     } catch (error) {
       next(error)
     }
