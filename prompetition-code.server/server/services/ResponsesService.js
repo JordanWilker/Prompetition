@@ -3,7 +3,7 @@ import { dbContext } from '../db/DbContext'
 
 class ResponsesService {
   async getResponsesbyTopicId(id) {
-    const responses = await dbContext.Responses.findById(id)
+    const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
     return responses
   }
 

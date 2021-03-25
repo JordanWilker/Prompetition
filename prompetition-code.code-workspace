@@ -2,10 +2,12 @@
 {
   "folders": [
     {
-      "path": "prompetition-code.client"
+      "path": "prompetition-code.client",
+      "name": "client"
     },
     {
-      "path": "prompetition-code.server"
+      "path": "prompetition-code.server",
+      "name": "server"
     }
   ],
   "settings": {
@@ -35,6 +37,7 @@
     "eslint.codeActionsOnSave.mode": "all",
     "editor.codeActionsOnSave": {
       "source.fixAll": true
-    }
+    },
+    "editor.autoIndent": "none"
   }
 }
