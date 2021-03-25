@@ -26,7 +26,7 @@ class TopicService {
       date = rebuiltDate.year + '-' + rebuiltDate.month + '-' + rebuiltDate.day
       const todaysTopic = AppState.topics.filter(t => t.challengeStartDate.substring(0, 9) === date)[0]
       if (!todaysTopic) {
-        window.alert('No prompt for today')
+        console.log('No prompt for today')
       } else {
         AppState.todaysTopic = todaysTopic
       }
