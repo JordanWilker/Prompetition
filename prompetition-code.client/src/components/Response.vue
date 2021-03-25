@@ -7,33 +7,29 @@
       <h5>
         {{ response.body }}
       </h5>
-      <i class="fa fa-heart fa-2x text-dark" aria-hidden="true" @click="createVote(response.id, state.user.id)"></i>
+      {{ response.votes }}
+      <i class="fa fa-heart fa-2x text-dark" aria-hidden="true"></i>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { Response } from '../models/Response'
 import { AppState } from '../AppState'
-import { voteService } from '../services/VoteService'
 export default {
   name: 'Response',
   props: {
     response: { type: Object, default: () => new Response() }
   },
-  setup(props) {
-    onMounted(() => {
-      voteService.getVotesByResponseId(props.response.id)
-    })
+  setup() {
+    // const votes = await voteService.getVotes(props.response.id)
     const state = reactive({
       user: computed(() => AppState.user)
     })
     return {
-      state,
-      createVote(responseId, creatorId) {
-        voteService.createVote(responseId, creatorId)
-      }
+      state
+      // votes
     }
   }
 }
