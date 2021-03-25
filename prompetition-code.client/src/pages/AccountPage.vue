@@ -4,7 +4,6 @@
       <div class="col">
         <div v-if="!state.editName" class="d-flex justify-content-center align-content-center">
           <h1>
-            <!-- TODO: Get and display this user's wins, likes, and practice likes -->
             <span v-if="state.activeUser == account">Welcome</span>
             {{ state.activeUser.name }}
           </h1>
@@ -28,13 +27,30 @@
     </div>
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-4">
+        <ul class="text-left list-unstyled">
+          <!-- TODO: Get and display this user's wins, likes, and practice likes -->
+          <li class="w-100">
+            <span>0</span>
+            Daily Wins
+          </li>
+          <li class="w-100">
+            <span>0</span>
+            Competitive Likes
+          </li>
+          <li class="w-100">
+            <span>0</span>
+            Practice Likes
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
         <UserWins :user="state.activeUser" v-if="state.pageState == 'wins'" />
       </div>
-      <div class="col-12">
+      <div class="col-4">
         <UserSubmissions :user="state.activeUser" v-if="state.pageState == 'submissions'" />
       </div>
-      <div class="col-12">
+      <div class="col-4">
         <UserPractices :user="state.activeUser" v-if="state.pageState == 'practices'" />
       </div>
     </div>
