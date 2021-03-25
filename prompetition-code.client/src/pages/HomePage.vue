@@ -4,11 +4,11 @@
       <img src="https://raw.githubusercontent.com/JordanWilker/Prompetition/master/prompetition-code.client/src/assets/img/skybg.PNG" alt="Sky Background Logo" class="img-fluid mt-3">
     </div>
     <div class="row d-flex justify-content-center mt-5">
-      <!-- <router-link :to="{ name: 'Write', params: { topicId: state.topics.filter(t => t.createdAt.substring(0, 9) === state.date)[0].id }}"> TODO: Link to WritePage with Today's Prompt -->
-      <button class="btn btn-info px-5">
-        Daily Prompt[0].id
-      </button>
-      <!-- </router-link> -->
+      <router-link :to="{ name: 'Write', params: { topicId: state.todaysTopic.id }}">
+        <button class="btn btn-info px-5">
+          Daily Prompt
+        </button>
+      </router-link>
       <button class="btn btn-dark">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </button>
@@ -48,11 +48,11 @@ export default {
   name: 'Home',
   setup() {
     onMounted(() => {
-      topicService.getDate()
+      topicService.getTodaysTopic()
     })
     const state = reactive({
       topics: computed(() => AppState.topics),
-      date: computed(() => AppState.date)
+      todaysTopic: computed(() => AppState.todaysTopic)
     })
     return {
       state
