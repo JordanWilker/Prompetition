@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+// import { dbContext } from '../db/DbContext.js'
+
 const Schema = mongoose.Schema
 const ObjectId = mongoose.SchemaTypes.ObjectId
 
@@ -10,7 +12,6 @@ const Response = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
-
 Response.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
@@ -18,4 +19,5 @@ Response.virtual('creator', {
   justOne: true
 })
 
+Response.index({ creatorId: 1, topicId: 1 }, { unique: true })
 export default Response

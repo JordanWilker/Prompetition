@@ -8,11 +8,13 @@ export class TopicsController extends BaseController {
     super('api/topics')
     this.router
       .get('', this.getTopic)
+      .get('/:id', this.getTopicById)
       .get('/:id/responses', this.getResponsesbyTopicId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTopic)
       .delete('/:id', this.deleteTopic)
+      .put('/:id', this.editTopic)
   }
 
   async getTopic(req, res, next) {
@@ -23,9 +25,17 @@ export class TopicsController extends BaseController {
     }
   }
 
+  async getTopicById(req, res, next) {
+    try {
+      return res.send(await topicsService.getTopicById(req.params.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async getResponsesbyTopicId(req, res, next) {
     try {
-      return res.send(await responsesService.getResponsesbyTopicId({ topicId: req.params.id }))
+      return res.send(await responsesService.getResponsesbyTopicId(req.params.id))
     } catch (error) {
       next(error)
     }
@@ -44,6 +54,15 @@ export class TopicsController extends BaseController {
   async deleteTopic(req, res, next) {
     try {
       return res.send(await topicsService.deleteTopic(req.params.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editTopic(req, res, next) {
+    try {
+      req.body.creatorId = req.userInfo.id
+      return res.send(await topicsService.editTopic(req.params.id, req.userInfo.id, req.body))
     } catch (error) {
       next(error)
     }

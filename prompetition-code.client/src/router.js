@@ -12,11 +12,6 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
-    path: '/about',
-    name: 'About',
-    component: loadPage('AboutPage')
-  },
-  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
@@ -36,6 +31,11 @@ const routes = [
     path: '/responses/:topicId',
     name: 'Responses',
     component: loadPage('ResponsesPage')
+  },
+  {
+    path: '/write/:topicId',
+    name: 'Write',
+    component: loadPage('WritePage')
   }
 ]
 
