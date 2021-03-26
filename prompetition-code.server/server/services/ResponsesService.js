@@ -2,7 +2,7 @@ import { dbContext } from '../db/DbContext'
 // import { BadRequest } from '../utils/Errors'
 
 class ResponsesService {
-  async getResponsesbyTopicId(id) {
+  async getResponsesbyTopicId(id, resId) {
     const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
     return responses
   }

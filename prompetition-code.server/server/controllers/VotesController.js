@@ -10,6 +10,7 @@ export class VotesController extends BaseController {
       .get('', this.getAllVotes)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createVote)
+      .delete('/:id', this.deleteVote)
   }
 
   async createVote(req, res, next) {
@@ -24,6 +25,14 @@ export class VotesController extends BaseController {
   async getAllVotes(req, res, next) {
     try {
       return res.send(await votesService.getAllVotes())
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteVote(req, res, next) {
+    try {
+      return res.send(await votesService.deleteVote(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error)
     }
