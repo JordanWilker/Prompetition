@@ -15,6 +15,7 @@ class TopicService {
 
   async getTodaysTopic() {
     const res = await api.get('api/topics/dailyChallenge')
+    // res.data.challengeStartDate = new Date(res.data.challengeStartDate).toLocaleDateString()
     AppState.todaysTopic = res.data
   }
 }

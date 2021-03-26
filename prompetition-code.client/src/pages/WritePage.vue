@@ -1,6 +1,33 @@
 <template>
-  <div class="col-12">
-    <Topic :topic="state.todaysTopic" />
+  <div class="Write w-100">
+    <div class="row">
+      <div class="col">
+        <div>
+          <p>{{ state.todaysTopic.body }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Time Remaining:
+        <div>
+          {{ new Date(state.timeLeft).toLocaleTimeString() }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form class="w-100" @submit.prevent="submitResponse">
+          <label for="topicResponse">Your Response:</label>
+          <textarea name="topicResponse" v-model="state.submission" class="rounded"></textarea>
+          <div class="w-100">
+            <button type="submit" class="btn btn-primary ml-auto mt-1">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,19 +40,49 @@ export default {
   name: 'Write',
   setup() {
     const route = useRoute()
-    onMounted(() => {
-      topicService.getTodaysTopic()
-    })
     const state = reactive({
-      todaysTopic: computed(() => AppState.todaysTopic)
+      todaysTopic: computed(() => AppState.todaysTopic),
+      submission: '',
+      startDate: new Date(AppState.todaysTopic.challengeStartDate),
+      submissionEndDate: AppState.todaysTopic.challengeStartDate + 86400000,
+      timeLeft: AppState.todaysTopic.challengeStartDate + 86400000 - new Date()
     })
+    const timer = setInterval(getTimeLeft, 200)
+    onMounted(() => {
+      // TODO: Get the prompt specified in the URL, and not always Daily Challenge
+      topicService.getTodaysTopic()
+      // TODO: Get user's response to the prompt, and set the state.submission to it
+      // Also, send the new submission to the server
+      // NOTE: There are 86,400,000 milliseconds in one day
+    })
+    function getTimeLeft() {
+      // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)
+      state.timeLeft = new Date(AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      if (state.timeLeft < 0) {
+        console.log('Submission period has ended')
+        clearInterval(timer)
+      } else if (state.timeLeft < 60000) {
+        // TODO: Alert the user to the small amount of time left
+      }
+    }
     return {
       state,
-      route
+      route,
+      submitResponse() {
+        console.log(state.submission)
+      }
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  textarea {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    resize:vertical;
+    min-height: 40px;
+    max-width: 100%;
+  }
 </style>
