@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { Vote } from '../models/Vote'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
@@ -12,11 +13,29 @@ class VoteService {
     }
   }
 
+  async getAllVotes() {
+    try {
+      const res = await api.get('api/votes')
+      AppState.votes = res.data.map(v => new Vote(v))
+    } catch (error) {
+      logger.error('Couldnt retrieve votes \n', error)
+    }
+  }
+
   async toggleVote(responseId) {
     try {
       this.getVotes(responseId)
     } catch (error) {
       logger.error('Couldnt like this response \n', error)
+    }
+  }
+
+  async createVote(responseId) {
+    try {
+      await api.post('api/votes', { responseId: responseId })
+      this.getAllVotes()
+    } catch (error) {
+      logger.error('Couldnt add a vote \n', error)
     }
   }
 }

@@ -8,7 +8,6 @@ class ResponseService {
     try {
       const res = await api.get('api/topics/' + topicId + '/responses')
       AppState.responses = res.data.map(r => new Response(r))
-      logger.log(AppState.responses)
     } catch (err) {
       logger.error('Couldnt retrieve responses \n', err)
     }

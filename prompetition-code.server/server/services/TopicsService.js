@@ -3,8 +3,13 @@ import { dbContext } from '../db/DbContext'
 
 class TopicsService {
   async getTopic() {
-    const topics = await dbContext.Topics.find()
+    const topics = await dbContext.Topics.find({ active: true, challengeStartDate: { $lt: Date.parse(new Date().toDateString()) } })
     return topics
+  }
+
+  async getAllTopics() {
+    const topicsAll = await dbContext.Topics.find()
+    return topicsAll
   }
 
   async getTopicById(id) {
