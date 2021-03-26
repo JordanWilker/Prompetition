@@ -7,9 +7,9 @@
       <h5>
         {{ response.body }}
       </h5>
-      <div class="d-inline-flex align-items-center" v-show="votes">
+      <div class="d-inline-flex align-items-center">
         {{ votes.length }}
-        <i class="fa fa-heart fa-2x ml-2" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="toggleVote()"></i>
+        <i class="fa fa-heart fa-2x ml-2" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="createVote(response.id)"></i>
       </div>
     </div>
   </div>
@@ -20,11 +20,12 @@ import { computed, reactive } from 'vue'
 import { Response } from '../models/Response'
 import { AppState } from '../AppState'
 import { Vote } from '../models/Vote'
+import { voteService } from '../services/VoteService'
 export default {
   name: 'Response',
   props: {
     response: { type: Object, default: () => new Response() },
-    votes: { type: Array, default: () => new Vote() }
+    votes: { type: Array, default: v => new Vote(v) }
   },
   setup() {
     const state = reactive({
@@ -37,8 +38,9 @@ export default {
   data() {
     return {
       buttonLiked: false,
-      toggleVote() {
+      createVote(responseId) {
         this.buttonLiked = !this.buttonLiked
+        voteService.createVote(responseId)
       }
     }
   }

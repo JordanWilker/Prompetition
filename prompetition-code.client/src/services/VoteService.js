@@ -29,6 +29,15 @@ class VoteService {
       logger.error('Couldnt like this response \n', error)
     }
   }
+
+  async createVote(responseId) {
+    try {
+      await api.post('api/votes', { responseId: responseId })
+      this.getAllVotes()
+    } catch (error) {
+      logger.error('Couldnt add a vote \n', error)
+    }
+  }
 }
 
 export const voteService = new VoteService()
