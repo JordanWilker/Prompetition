@@ -8,7 +8,7 @@ const Topic = new Schema(
     creatorId: { type: String, ref: 'Account', required: true },
     used: { type: Boolean, required: true, default: false },
     winnerResponseId: { type: ObjectId, ref: 'Response' },
-    challengeStartDate: { type: Date },
+    challengeStartDate: { type: Number },
     active: { type: Boolean, required: true, default: false }
   },
   { timestamps: true, toJSON: { virtuals: true } }
