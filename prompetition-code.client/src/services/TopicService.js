@@ -15,7 +15,7 @@ class TopicService {
 
   async getTodaysTopic() {
     const res = await api.get('api/topics/dailyChallenge')
-    AppState.todaysTopic = res.data
+    AppState.todaysTopic = new Topic(res.data)
   }
 }
 
