@@ -12,6 +12,15 @@ class VoteService {
     }
   }
 
+  async getAllVotes() {
+    try {
+      const res = await api.get('api/votes')
+      AppState.votes = res.data
+    } catch (error) {
+      logger.error('Couldnt retrieve votes \n', error)
+    }
+  }
+
   async toggleVote(responseId) {
     try {
       this.getVotes(responseId)

@@ -7,14 +7,14 @@
       <h5>
         {{ response.body }}
       </h5>
-      {{ state.votes.length }}
+      {{ state.votes.filter(v => v.responseId === response.id) }}
       <i class="fa fa-heart fa-2x" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="toggleVote(response.id)"></i>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { Response } from '../models/Response'
 import { AppState } from '../AppState'
 import { voteService } from '../services/VoteService'
@@ -23,10 +23,7 @@ export default {
   props: {
     response: { type: Object, default: () => new Response() }
   },
-  setup(props) {
-    onMounted(() => {
-      voteService.getVotes(props.response.id)
-    })
+  setup() {
     const state = reactive({
       user: computed(() => AppState.user),
       votes: computed(() => AppState.votes)

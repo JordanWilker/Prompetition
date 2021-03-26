@@ -15,7 +15,6 @@
       </div>
     </router-link>
   </div>
-<!-- Not getting any errors... But also no responses... -->
 </template>
 
 <script>
