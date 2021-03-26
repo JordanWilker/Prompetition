@@ -71,7 +71,7 @@ export class TopicsController extends BaseController {
 
   async getDailyChallenge(req, res, next) {
     try {
-      return res.send(await topicsService.getDailyChallenge(req.body))
+      return res.send(await topicsService.getDailyChallenge())
     } catch (error) {
       next(error)
     }
