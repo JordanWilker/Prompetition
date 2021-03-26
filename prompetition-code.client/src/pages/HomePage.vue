@@ -14,9 +14,11 @@
       </button>
     </div>
     <div class="row d-flex justify-content-center mt-5">
-      <button class="btn btn-info px-5">
-        Previous Prompts
-      </button>
+      <router-link :to="{ name: 'Topics' }">
+        <button class="btn btn-info px-5">
+          Previous Prompts
+        </button>
+      </router-link>
       <button class="btn btn-dark">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </button>

@@ -6,8 +6,10 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <div class="bg-dark text-light text-center p-2">
+      <a href="https://github.com/JordanWilker/Prompetition">
+        <i class="fa fa-github fa-2x text-light" aria-hidden="true" title="GitHub"></i>
+      </a>
     </div>
   </footer>
 </template>
@@ -26,5 +28,4 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
 </style>

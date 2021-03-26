@@ -5,5 +5,6 @@ export class Response {
     this.topicId = data.topicId || 'placeholder topic id'
     this.creator = data.creator || {}
     this.createdAt = data.createdAt || 'creation date unknown'
+    this.votes = data.votes || '0'
   }
 }

@@ -2,25 +2,59 @@
   <div class="about text-center container">
     <div class="row">
       <div class="col">
-        <h1>
-          <!-- TODO: Get and display this user's wins, likes, and practice likes -->
-          <span v-if="state.activeUser == account">Welcome</span>
-          {{ state.activeUser.name }}
-        </h1>
+        <div v-if="!state.editName" class="d-flex justify-content-center align-content-center">
+          <h1>
+            <span v-if="state.activeUser == account">Welcome</span>
+            {{ state.activeUser.name }}
+          </h1>
+          <button v-if="state.activeUser.id == account.id" class="btn btn-primary ml-3" @click="state.editName = !state.editName">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form v-else @submit.prevent="submitNewNickname">
+          <label for="username" class="mr-2">New Nickname: </label>
+          <input type="text" name="username" :placeholder="account.name" v-model="state.newName">
+          <button class="btn btn-primary ml-3" type="submit">
+            Submit
+          </button>
+          <button class="btn btn-primary ml-3" type="button" @click="state.editName = !state.editName">
+            Cancel
+          </button>
+        </form>
+
         <img class="rounded" :src="state.activeUser.picture" alt="" />
-        <p>{{ state.activeUser.email }}</p>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <UserWins :user="state.activeUser" v-if="state.pageState == 'wins'" />
+      <div class="col">
+        <ul class="list-unstyled">
+          <!-- TODO: Get and display this user's wins, likes, and practice likes -->
+          <li>
+            <span>0</span>
+            Daily Wins
+          </li>
+          <li>
+            <span>0</span>
+            Competitive Likes
+          </li>
+          <li>
+            <span>0</span>
+            Practice Likes
+          </li>
+        </ul>
       </div>
-      <div class="col-12">
-        <UserSubmissions :user="state.activeUser" v-if="state.pageState == 'submissions'" />
+    </div>
+
+    <div class="row">
+      <div class="col-12" v-if="state.pageState == 'wins'">
+        <UserWins :user="state.activeUser" />
       </div>
-      <div class="col-12">
-        <UserPractices :user="state.activeUser" v-if="state.pageState == 'practices'" />
+      <div class="col-12" v-if="state.pageState == 'submissions'">
+        <UserSubmissions :user="state.activeUser" />
+      </div>
+      <div class="col-12" v-if="state.pageState == 'practices'">
+        <UserPractices :user="state.activeUser" />
       </div>
     </div>
 
@@ -61,7 +95,9 @@ export default {
     const route = useRoute()
     const state = reactive({
       pageState: 'wins',
-      activeUser: computed(() => AppState.activeUserView)
+      activeUser: computed(() => AppState.activeUserView),
+      editName: false,
+      newName: AppState.account.name
     })
     onMounted(() => {
       if (route.params.id) {
@@ -75,6 +111,9 @@ export default {
       account: computed(() => AppState.account),
       changeState(newState = 'wins') {
         state.pageState = newState
+      },
+      submitNewNickname() {
+        accountService.editUserName(state.newName)
       }
     }
   },
@@ -98,7 +137,7 @@ nav {
   left: 0;
 }
 
-li {
+li.nav-item {
   width: 33%
 }
 </style>
