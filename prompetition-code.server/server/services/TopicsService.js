@@ -25,14 +25,19 @@ class TopicsService {
   }
 
   async getDailyChallenge() {
-    const res = dbContext.Topics.find({ active: true, challengeStartDate: Date() })
-    if (!res) {
-      const topics = dbContext.Topics.find({ active: false })
+    const date = new Date()
+    console.log(date)
+    const res = await dbContext.Topics.findOne({ active: true, challengeStartDate: date })
+    if (res === null) {
+      const topics = await dbContext.Topics.find({ active: false })
       const topicsLength = topics.length
       const topicPicker = Math.floor(Math.random() * topicsLength)
       topics[topicPicker].active = true
-      topics[topicPicker].startChallengeDate = new Date('<YYYY-mm-dd>')
+      topics[topicPicker].challengeStartDate = new Date()
+      topics[topicPicker].save()
+      return topics[topicPicker]
     }
+    return res
   }
 }
 export const topicsService = new TopicsService()

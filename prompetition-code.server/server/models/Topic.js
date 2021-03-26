@@ -9,7 +9,7 @@ const Topic = new Schema(
     used: { type: Boolean, required: true, default: false },
     winnerResponseId: { type: ObjectId, ref: 'Response' },
     challengeStartDate: { type: Date },
-    active: { type: Boolean, default: false }
+    active: { type: Boolean, required: true, default: false }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
