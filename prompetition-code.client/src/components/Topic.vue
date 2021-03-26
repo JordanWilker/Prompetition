@@ -4,7 +4,7 @@
       <div class="col-12 topic-card">
         <div class="row d-flex">
           <h6 class="topic-date">
-            {{ topic.createdAt.substring(0, 10) }}
+            {{ topic.challengeStartDate }}
           </h6>
         </div>
         <div class="row d-flex">

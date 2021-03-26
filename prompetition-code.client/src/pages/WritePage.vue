@@ -1,19 +1,23 @@
 <template>
   <div class="col-12">
-    <Topic :topic="state.topics.filter(t => t.id === route.params.id)" />
+    <Topic :topic="state.todaysTopic" />
   </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
+import { topicService } from '../services/TopicService'
 export default {
   name: 'Write',
   setup() {
     const route = useRoute()
+    onMounted(() => {
+      topicService.getTodaysTopic()
+    })
     const state = reactive({
-      topics: computed(() => AppState.topics)
+      todaysTopic: computed(() => AppState.todaysTopic)
     })
     return {
       state,
