@@ -14,6 +14,10 @@ class VotesService {
   async deleteVote(id, userId) {
     return await dbContext.Votes.findOneAndDelete({ _id: id, creatorId: userId })
   }
+
+  async getAllVotes() {
+    return await dbContext.Votes.find()
+  }
 }
 
 export const votesService = new VotesService()
