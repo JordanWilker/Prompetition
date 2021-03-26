@@ -1,6 +1,6 @@
 <template>
   <div class="col-12">
-    <Response v-for="response in state.responses" :key="response.id" :response="response" />
+    <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
   </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
       }
     })
     const state = reactive({
-      responses: computed(() => AppState.responses)
+      responses: computed(() => AppState.responses),
+      votes: computed(() => AppState.votes)
     })
     return {
       state

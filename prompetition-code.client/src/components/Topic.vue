@@ -39,7 +39,7 @@ export default {
 .topic-card:hover {
   cursor: pointer;
   background-color: #8080802c;
-  transform: scale(0.9);
+  transform: scale(0.97);
   transition: 0.2s ease-in-out;
 }
 .topic-date {

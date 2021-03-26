@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { Vote } from '../models/Vote'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
@@ -15,7 +16,7 @@ class VoteService {
   async getAllVotes() {
     try {
       const res = await api.get('api/votes')
-      AppState.votes = res.data
+      AppState.votes = res.data.map(v => new Vote(v))
     } catch (error) {
       logger.error('Couldnt retrieve votes \n', error)
     }

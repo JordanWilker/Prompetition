@@ -3,12 +3,14 @@
     <h6 class="col-12 response-date">
       {{ response.creator.name.substring(0, response.creator.name.indexOf('@')) }}
     </h6>
-    <div class="col-12 d-inline-flex justify-content-between align-items-center" v-if="state.votes">
+    <div class="col-12 d-inline-flex justify-content-between align-items-center">
       <h5>
         {{ response.body }}
       </h5>
-      {{ state.votes.filter(v => v.responseId === response.id) }}
-      <i class="fa fa-heart fa-2x" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="toggleVote(response.id)"></i>
+      <div class="d-inline-flex align-items-center" v-show="votes">
+        {{ votes.length }}
+        <i class="fa fa-heart fa-2x ml-2" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="toggleVote()"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -17,16 +19,16 @@
 import { computed, reactive } from 'vue'
 import { Response } from '../models/Response'
 import { AppState } from '../AppState'
-import { voteService } from '../services/VoteService'
+import { Vote } from '../models/Vote'
 export default {
   name: 'Response',
   props: {
-    response: { type: Object, default: () => new Response() }
+    response: { type: Object, default: () => new Response() },
+    votes: { type: Array, default: () => new Vote() }
   },
   setup() {
     const state = reactive({
-      user: computed(() => AppState.user),
-      votes: computed(() => AppState.votes)
+      user: computed(() => AppState.user)
     })
     return {
       state
@@ -35,9 +37,8 @@ export default {
   data() {
     return {
       buttonLiked: false,
-      toggleVote(responseId) {
+      toggleVote() {
         this.buttonLiked = !this.buttonLiked
-        voteService.toggleVote(responseId)
       }
     }
   }
