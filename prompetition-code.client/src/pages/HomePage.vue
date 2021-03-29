@@ -32,7 +32,7 @@
       </button>
     </div>
     <div class="row d-flex justify-content-center my-5">
-      <button class="btn btn-warning px-4" disabled>
+      <button class="btn btn-warning px-4" @click="sendData">
         Prompt Duel
       </button>
       <button class="btn btn-dark">
@@ -46,18 +46,25 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
+import { socketService } from '../services/SocketsService'
+import { duelService } from '../services/DuelsService'
 export default {
   name: 'Home',
   setup() {
     onMounted(() => {
       topicService.getTodaysTopic()
+      socketService.emit('join:room', 'general')
     })
     const state = reactive({
       topics: computed(() => AppState.topics),
       todaysTopic: computed(() => AppState.todaysTopic)
     })
     return {
-      state
+      state,
+      sendData() {
+        console.log('This is the Home Page')
+        duelService.startDuel()
+      }
     }
   }
 }
