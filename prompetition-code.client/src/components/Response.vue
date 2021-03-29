@@ -9,7 +9,19 @@
       </h5>
       <div class="d-inline-flex align-items-center">
         {{ votes.length }}
-        <i class="fa fa-heart fa-2x ml-2" :class="{ 'text-danger': buttonLiked }" aria-hidden="true" @click="createVote(response.id)"></i>
+        <!-- Votes are extremely slow with current set-up. TODO: minimize vote api calls -->
+        <i class="fa fa-heart fa-2x ml-2"
+           :class="{ 'text-danger': buttonLiked }"
+           aria-hidden="true"
+           @click="createVote(response.id)"
+           v-if="!(votes.filter(v => v.creator.email === state.user.email).length === 1)"
+        ></i>
+        <i class="fa fa-heart fa-2x ml-2"
+           :class="{ 'text-danger': !buttonLiked }"
+           aria-hidden="true"
+           @click="deleteVote(votes.filter(v => v.creator.email === state.user.email)[0].id)"
+           v-else
+        ></i>
       </div>
     </div>
   </div>
@@ -39,8 +51,10 @@ export default {
     return {
       buttonLiked: false,
       createVote(responseId) {
-        this.buttonLiked = !this.buttonLiked
         voteService.createVote(responseId)
+      },
+      deleteVote(voteId) {
+        voteService.deleteVote(voteId)
       }
     }
   }

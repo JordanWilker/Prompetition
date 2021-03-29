@@ -38,6 +38,15 @@ class VoteService {
       logger.error('Couldnt add a vote \n', error)
     }
   }
+
+  async deleteVote(voteId) {
+    try {
+      await api.delete('api/votes/' + voteId)
+      this.getAllVotes()
+    } catch (error) {
+      logger.error('Couldnt add a vote \n', error)
+    }
+  }
 }
 
 export const voteService = new VoteService()

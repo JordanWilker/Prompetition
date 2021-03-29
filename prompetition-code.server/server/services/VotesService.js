@@ -16,7 +16,7 @@ class VotesService {
   }
 
   async getAllVotes() {
-    return await dbContext.Votes.find()
+    return await dbContext.Votes.find().populate('creator')
   }
 }
 
