@@ -4,7 +4,6 @@
       <img src="https://raw.githubusercontent.com/JordanWilker/Prompetition/master/prompetition-code.client/src/assets/img/skybg.PNG" alt="Sky Background Logo" class="img-fluid mt-3">
     </div>
     <div class="row d-flex justify-content-center mt-5">
-      <<<<<<< HEAD
       <div class="col-sm panel-button hvr-underline-from-left bg-primary">
         <div class="row d-flex justify-content-end bg-lighter">
           <button class="info-button text-light" @click="showInfo(0)">
@@ -42,34 +41,6 @@
           </div>
         </router-link>
       </div>
-      =======
-      <router-link :to="{ name: 'Write', params: { topicId: state.todaysTopic.id }}">
-        <button class="btn btn-info px-5">
-          Daily Prompt
-        </button>
-      </router-link>
-      <button class="btn btn-dark" @click="showInfo(0)">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-      </button>
-    </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <router-link :to="{ name: 'Topics' }">
-        <button class="btn btn-info px-5">
-          Previous Prompts
-        </button>
-      </router-link>
-      <button class="btn btn-dark" @click="showInfo(1)">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-      </button>
-    </div>
-    <div class="row d-flex justify-content-center my-5">
-      <button class="btn btn-warning px-4" @click="sendData">
-        Prompt Duel
-      </button>
-      <button class="btn btn-dark" @click="showInfo(2)">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-      </button>
-      >>>>>>> 38b113494d3cbde1e0688eaf4e5c3928c24352c1
     </div>
   </div>
 </template>
