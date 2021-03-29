@@ -2,6 +2,7 @@ import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { topicsService } from '../services/TopicsService'
 import { responsesService } from '../services/ResponsesService'
+import { duelsService } from '../services/DuelsService'
 
 export class TopicsController extends BaseController {
   constructor() {
@@ -15,6 +16,7 @@ export class TopicsController extends BaseController {
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTopic)
+      .post('/duels', this.getDuel)
       .delete('/:id', this.deleteTopic)
       .put('/:id', this.editTopic)
   }
@@ -30,6 +32,14 @@ export class TopicsController extends BaseController {
   async getAllTopics(req, res, next) {
     try {
       return res.send(await topicsService.getAllTopics())
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getDuel(req, res, next) {
+    try {
+      return res.send(await duelsService.getDuel())
     } catch (error) {
       next(error)
     }
