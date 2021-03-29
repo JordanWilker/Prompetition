@@ -8,10 +8,10 @@ export class DuelsController extends BaseController {
     super('api/duels')
     this.router
       .get('', this.getDuel)
+      .get('/startDuel', this.startDuel)
       .get('/:id', this.getDuelById)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/startDuel', this.startDuel)
       .delete('/:id', this.deleteDuel)
       .put('/:id', this.editDuel)
   }

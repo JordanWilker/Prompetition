@@ -4,10 +4,10 @@ import { logger } from '../utils/Logger'
 // import { BadRequest } from '../utils/Errors'
 
 class DuelsService {
-  // async getDuel() {
-  //   const duel = await dbContext.Duels.find()
-  //   return duel
-  // }
+  async getDuel() {
+    const duel = await dbContext.Duels.find()
+    return duel
+  }
 
   async getDuelById(id) {
     const duel = await dbContext.Duels.find({ _id: id })
@@ -31,9 +31,14 @@ class DuelsService {
   }
 
   async startDuel() {
-    const duel = await dbContext.Duels.create()
+    const duels = await dbContext.Topics.find({ active: false })
+    const duelsLength = duels.length
+    const duelPicker = Math.floor(Math.random() * duelsLength)
+    const duelBody = duels[duelPicker].body
+    const duel = await dbContext.Duels.create({ body: duelBody })
     socketService.messageRoom('general', 'get:duel', duel)
     logger.log('howdy??')
+    logger.log(duelBody)
     return duel
   }
 }

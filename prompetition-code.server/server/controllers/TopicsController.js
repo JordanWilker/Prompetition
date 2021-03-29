@@ -39,7 +39,7 @@ export class TopicsController extends BaseController {
 
   async getDuel(req, res, next) {
     try {
-      return res.send(await duelsService.getDuel())
+      return res.send(await duelsService.createDuel())
     } catch (error) {
       next(error)
     }
