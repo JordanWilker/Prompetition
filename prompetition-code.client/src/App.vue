@@ -3,9 +3,7 @@
     <Navbar />
   </header>
   <main class="container-fluid">
-    <div class="card-custom">
-      <router-view />
-    </div>
+    <router-view />
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-2">
@@ -33,6 +31,10 @@ export default {
 
 .card-custom {
   background-color: white;
+}
+
+* {
+  font-family: 'Lato';
 }
 
 main {

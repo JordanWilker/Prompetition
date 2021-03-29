@@ -1,15 +1,17 @@
-
-  {
-    "name": "prompetition-code",
-    "version": "1.0.0",
-    "scripts": {
-      "build": "npm run setup:client && npm run setup:server",
-      "setup:client": "cd prompetition-code.client && npm i",
-      "setup:server": "cd prompetition-code.server && npm i",
-      "start": "node prompetition-code.server/index.js"
-    },
-    "engines": {
-      "node": "^14.15.4"
-    }
+{
+  "name": "prompetition-code",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run setup:client && npm run setup:server",
+    "setup:client": "cd prompetition-code.client && npm i",
+    "setup:server": "cd prompetition-code.server && npm i",
+    "start": "node prompetition-code.server/index.js"
+  },
+  "engines": {
+    "node": "^14.15.4"
+  },
+  "dependencies": {
+    "vanilla-tilt": "^1.7.0",
+    "vue-tilt.js": "^1.1.1"
   }
-  
+}
