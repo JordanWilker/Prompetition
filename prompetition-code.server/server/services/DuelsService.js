@@ -30,7 +30,7 @@ class DuelsService {
     return await dbContext.Duels.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
   }
 
-  async getDuel() {
+  async startDuel() {
     const duel = await dbContext.Duels.create()
     socketService.messageRoom('general', 'get:duel', duel)
     logger.log('howdy??')
