@@ -9,7 +9,7 @@
           Daily Prompt
         </button>
       </router-link>
-      <button class="btn btn-dark">
+      <button class="btn btn-dark" @click="showInfo(0)">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </button>
     </div>
@@ -19,15 +19,7 @@
           Previous Prompts
         </button>
       </router-link>
-      <button class="btn btn-dark">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-      </button>
-    </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <button class="btn btn-info px-4">
-        Judge Today's Daily
-      </button>
-      <button class="btn btn-dark">
+      <button class="btn btn-dark" @click="showInfo(1)">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </button>
     </div>
@@ -35,7 +27,7 @@
       <button class="btn btn-warning px-4" disabled>
         Prompt Duel
       </button>
-      <button class="btn btn-dark">
+      <button class="btn btn-dark" @click="showInfo(2)">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </button>
     </div>
@@ -46,6 +38,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
+import { alertService } from '../services/AlertService'
 export default {
   name: 'Home',
   setup() {
@@ -57,7 +50,10 @@ export default {
       todaysTopic: computed(() => AppState.todaysTopic)
     })
     return {
-      state
+      state,
+      showInfo(num) {
+        alertService.showInfo(num)
+      }
     }
   }
 }
