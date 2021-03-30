@@ -6,6 +6,7 @@ export const AppState = reactive({
   account: {},
   topics: [],
   responses: [],
+  myResponse: {},
   votes: [],
   activeUserView: {},
   todaysTopic: {},
