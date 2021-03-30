@@ -1,17 +1,10 @@
 <template>
-  <header>
+  <header class="bg-none">
     <Navbar />
   </header>
   <main class="container-fluid">
     <router-view />
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-2">
-      <a href="https://github.com/JordanWilker/Prompetition">
-        <i class="fa fa-github fa-2x text-light" aria-hidden="true" title="GitHub"></i>
-      </a>
-    </div>
-  </footer>
 </template>
 
 <script>
@@ -28,16 +21,24 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+.bg-none {
+  background-color: rgb(1, 0, 10);
+}
 .card-custom {
   background-color: white;
 }
-
-* {
-  font-family: 'Lato';
+div {
+  font-family: 'Inter', sans-serif !important;
 }
 
 main {
-  background-image: url('https://media.istockphoto.com/vectors/seamless-pattern-made-of-hand-drawn-comic-bubbles-vector-id1169712293?b=1&k=6&m=1169712293&s=170667a&w=0&h=8ItAlfQr8T66c9hXof5D-71RCPau94XgkDM_nRV92Xk=');
+  background-image: url('assets/img/writing.jpg');
+  background-size: cover;
 }
+
+// @media (max-width: 500px) {
+//   main {
+//     background-image: url('assets/img/writing_mobile.jpg');
+//   }
+// }
 </style>

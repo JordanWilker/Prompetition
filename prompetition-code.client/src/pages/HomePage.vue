@@ -1,10 +1,44 @@
 <template>
-  <div class="col-12">
-    <div class="row d-flex justify-content-center">
-      <img src="https://raw.githubusercontent.com/JordanWilker/Prompetition/master/prompetition-code.client/src/assets/img/skybg.PNG" alt="Sky Background Logo" class="img-fluid mt-3">
+  <div class="col-sm-8">
+    <div class="row d-flex justify-content-center text-light my-5">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h6>Slide 1</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h6>Slide 2</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+              <h6>Slide 3</h6>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <div class="col-sm panel-button hvr-underline-from-left bg-primary">
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-sm m-2 panel-button hvr-underline-from-left bg-primary">
         <div class="row d-flex justify-content-end bg-lighter">
           <button class="info-button text-light" @click="showInfo(0)">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -16,8 +50,7 @@
           </div>
         </router-link>
       </div>
-      <!-- ADD BELOW -->
-      <div class="col-sm m-4 panel-button hvr-underline-from-left bg-secondary">
+      <div class="col-sm m-2 panel-button hvr-underline-from-left bg-secondary">
         <div class="row d-flex justify-content-end bg-lighter">
           <button class="info-button text-light" @click="showInfo(1)">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -29,7 +62,7 @@
           </div>
         </router-link>
       </div>
-      <div class="col-sm panel-button hvr-underline-from-left bg-warning">
+      <div class="col-sm m-2 panel-button hvr-underline-from-left bg-warning">
         <div class="row d-flex justify-content-end bg-lighter">
           <button class="info-button text-light" @click="sendData">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -78,10 +111,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-img {
-  border-radius: 10px;
-  max-height: 207px;
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+.carousel-inner {
+  max-width: 800px;
+  max-height: 400px;
 }
 
 .panel-button {
@@ -137,4 +169,5 @@ img {
 .hvr-underline-from-left:hover:before, .hvr-underline-from-left:focus:before, .hvr-underline-from-left:active:before {
   right: 0;
 }
+
 </style>
