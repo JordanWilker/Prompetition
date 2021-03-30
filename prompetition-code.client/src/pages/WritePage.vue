@@ -36,6 +36,7 @@ import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { topicService } from '../services/TopicService'
+import { responseService } from '../services/ResponseService.js'
 export default {
   name: 'Write',
   setup() {
@@ -51,8 +52,10 @@ export default {
     onMounted(() => {
       // TODO: Get the prompt specified in the URL, and not always Daily Challenge
       topicService.getTodaysTopic()
+      responseService.getResponsesByTopicId(state.todaysTopic.id)
       // TODO: Get user's response to the prompt, and set the state.submission to it
       // Also, send the new submission to the server
+
       // NOTE: There are 86,400,000 milliseconds in one day
     })
     function getTimeLeft() {
@@ -69,7 +72,13 @@ export default {
       state,
       route,
       submitResponse() {
-        console.log(state.submission)
+        const body = {
+          body: state.submission,
+          topicId: route.params.topicId,
+          votes: 0
+        }
+        console.log(body)
+        responseService.createResponse(body)
       }
     }
   }

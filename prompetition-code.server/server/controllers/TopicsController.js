@@ -55,7 +55,7 @@ export class TopicsController extends BaseController {
 
   async getResponsesbyTopicId(req, res, next) {
     try {
-      return res.send(await responsesService.getResponsesbyTopicId(req.params.id))
+      return res.send(await responsesService.getResponsesbyTopicId(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error)
     }

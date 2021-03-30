@@ -12,6 +12,15 @@ class ResponseService {
       logger.error('Couldnt retrieve responses \n', err)
     }
   }
+
+  async createResponse(response) {
+    try {
+      await api.post('api/responses/', response)
+      this.getResponsesByTopicId(response.topicId)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 
 export const responseService = new ResponseService()

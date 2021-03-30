@@ -15,7 +15,6 @@ export class ResponsesController extends BaseController {
       .put('/:id', this.editResponse)
   }
 
-  // NOTE: this is for us to get the testing, and getting premade prompts
   async createResponse(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
