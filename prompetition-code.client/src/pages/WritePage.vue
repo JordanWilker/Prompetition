@@ -49,10 +49,12 @@ export default {
       timeLeft: AppState.todaysTopic.challengeStartDate + 86400000 - new Date()
     })
     const timer = setInterval(getTimeLeft, 200)
-    onMounted(() => {
+    onMounted(async() => {
       // TODO: Get the prompt specified in the URL, and not always Daily Challenge
-      topicService.getTodaysTopic()
-      responseService.getResponsesByTopicId(state.todaysTopic.id)
+      await topicService.getTodaysTopic()
+      await responseService.getResponsesByTopicId(route.params.topicId)
+      console.log('Responses', AppState.responses)
+      state.submission = AppState.responses[0].body
       // TODO: Get user's response to the prompt, and set the state.submission to it
       // Also, send the new submission to the server
 
@@ -78,7 +80,11 @@ export default {
           votes: 0
         }
         console.log(body)
-        responseService.createResponse(body)
+        if (!AppState.respondedToday) {
+          responseService.createResponse(body)
+        } else {
+          responseService.editResponse(body)
+        }
       }
     }
   }

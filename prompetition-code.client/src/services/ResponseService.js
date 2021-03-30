@@ -8,6 +8,8 @@ class ResponseService {
     try {
       const res = await api.get('api/topics/' + topicId + '/responses')
       AppState.responses = res.data.map(r => new Response(r))
+      AppState.respondedToday = (!AppState.responses[0] === '')
+      console.log("Topic's response", AppState.responses[0].body)
     } catch (err) {
       logger.error('Couldnt retrieve responses \n', err)
     }
@@ -15,8 +17,17 @@ class ResponseService {
 
   async createResponse(response) {
     try {
+      console.log(response)
       await api.post('api/responses/', response)
       this.getResponsesByTopicId(response.topicId)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async editResponse(response) {
+    try {
+      //
     } catch (error) {
       logger.error(error)
     }
