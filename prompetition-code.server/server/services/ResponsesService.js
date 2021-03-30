@@ -1,9 +1,14 @@
 import { dbContext } from '../db/DbContext'
-// import { BadRequest } from '../utils/Errors'
+import { BadRequest } from '../utils/Errors'
 
 class ResponsesService {
-  async getResponsesbyTopicId(id, resId) {
+  async getResponsesbyTopicId(id, userId) {
     const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
+    const topic = await dbContext.Topics.find({ _id: id })
+    if (topic.challengeStartDate + 86400000 < new Date()) {
+      const response = responses.find(r => r.creatorId === userId)
+      if (userId && response) { return response }
+    }
     return responses
   }
 
@@ -16,7 +21,12 @@ class ResponsesService {
   }
 
   async editResponse(id, userId, body) {
-    return await dbContext.Responses.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
+    const edited = await dbContext.Responses.findOneAndUpdate({ topicId: id, creatorId: userId }, body, { new: true })
+    if (!edited) {
+      throw new BadRequest("Response didn't edit")
+    } else {
+      return edited
+    }
   }
 }
 export const responsesService = new ResponsesService()

@@ -12,9 +12,9 @@ export class TopicsController extends BaseController {
       .get('/dailyChallenge', this.getDailyChallenge)
       .get('/all', this.getAllTopics)
       .get('/:id', this.getTopicById)
-      .get('/:id/responses', this.getResponsesbyTopicId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('/:id/responses', this.getResponsesbyTopicId)
       .post('', this.createTopic)
       .post('/duels', this.getDuel)
       .delete('/:id', this.deleteTopic)
@@ -55,7 +55,7 @@ export class TopicsController extends BaseController {
 
   async getResponsesbyTopicId(req, res, next) {
     try {
-      return res.send(await responsesService.getResponsesbyTopicId(req.params.id))
+      return res.send(await responsesService.getResponsesbyTopicId(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error)
     }
