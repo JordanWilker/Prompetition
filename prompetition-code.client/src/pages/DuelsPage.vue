@@ -32,7 +32,6 @@ export default {
       state,
       test() {
         duelService.test(route.params.id)
-        console.log(AppState.activeDuel)
       }
     }
   },

@@ -8,9 +8,10 @@ class ResponseService {
     try {
       const res = await api.get('api/topics/' + topicId + '/responses')
       AppState.responses = res.data.map(r => new Response(r))
+      console.log("Topic's responses", AppState.responses)
+      console.log('My response:')
       AppState.myResponse = AppState.responses.find(r => r.creator.id === AppState.account.id)
-      console.log('My response:', AppState.myResponse)
-      // console.log("Topic's responses", AppState.responses)
+      console.log(AppState.myResponse)
     } catch (err) {
       logger.error("Couldn't retrieve responses \n", err)
     }
