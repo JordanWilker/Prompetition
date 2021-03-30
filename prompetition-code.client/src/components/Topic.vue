@@ -33,16 +33,16 @@ export default {
   margin-left: 0vh;
   padding: 3vh;
   border: 2px solid gray;
-  border-radius: 15px;
+  border-radius: 0px;
   font-family: 'Lato', sans-serif;
 }
 .topic-card:hover {
   cursor: pointer;
-  background-color: #8080802c;
-  transform: scale(0.97);
+  background-color: #ffffff2c;
+  transform: scale(0.99);
   transition: 0.2s ease-in-out;
 }
 .topic-date {
-  color: gray;
+  color: #27a9af;
 }
 </style>

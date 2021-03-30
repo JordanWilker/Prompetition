@@ -1,13 +1,13 @@
 <template>
-  <div class="row response-card">
-    <h6 class="col-12 response-date">
+  <div class="row response-card w-50">
+    <h6 class="col-12 response-date mb-0">
       {{ response.creator.name.substring(0, response.creator.name.indexOf('@')) }}
     </h6>
     <div class="col-12 d-inline-flex justify-content-between align-items-center">
-      <h5>
+      <h5 class="text-cblue">
         {{ response.body }}
       </h5>
-      <div class="d-inline-flex align-items-center">
+      <div class="d-inline-flex align-items-center heart-container bold">
         {{ votes.length }}
         <!-- Votes are extremely slow with current set-up. TODO: minimize vote api calls -->
         <i class="fa fa-heart fa-2x ml-2"
@@ -66,10 +66,25 @@ export default {
   margin: 2vh;
   padding: 3vh;
   border: 2px solid gray;
-  border-radius: 15px;
+  border-radius: 0px;
   font-family: 'Lato', sans-serif;
 }
+.bold {
+  font-weight: bolder;
+}
+.text-cblue {
+  color: cornflowerblue;
+}
+.heart-container {
+  background-color: rgba(255, 255, 255, 0.493);
+  border: 2px solid gray;
+  border-radius: 50%;
+  padding: 10px;
+}
+.fa-heart:hover {
+  cursor: pointer;
+}
 .response-date {
-  color: gray;
+  color: rgb(255, 192, 17);
 }
 </style>
