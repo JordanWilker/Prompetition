@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img
@@ -18,7 +18,9 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon" />
+      <span class="navbar-toggler-icon text-cblue">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
@@ -48,20 +50,20 @@
               height="40"
               class="rounded"
             />
-            <span class="mx-3">{{ user.name }}</span>
+            <span class="mx-3 text-cblue">{{ user.name }}</span>
           </div>
           <div
-            class="dropdown-menu p-0 list-group w-100"
+            class="dropdown-menu p-0 list-group w-100 bg-none"
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <div class="list-group-item list-group-item-action hoverable bg-none text-light">
                 Account
               </div>
             </router-link>
             <div
-              class="list-group-item list-group-item-action hoverable"
+              class="list-group-item list-group-item-action hoverable bg-none text-light"
               @click="logout"
             >
               logout
@@ -101,14 +103,33 @@ export default {
 .dropdown-menu {
   user-select: none;
   display: block;
-  transform: scale(0);
-  transition: all 0.15s linear;
+  transform-origin: 100% 0;
+  transform: scaleY(0);
+  transition: transform 0.10s linear;
 }
 .dropdown-menu.show {
-  transform: scale(1);
+  transform: scaleY(1);
+}
+.fa-bars {
+  font-size: 22pt;
+}
+.list-group-item:hover {
+  background-color: cornflowerblue;
+  color: black !important;
+}
+.text-cblue {
+  color: cornflowerblue !important;
+}
+.text-cblue:hover {
+  color: lightblue !important;
+}
+.dropdown-toggle {
+  user-select: none;
+  cursor: pointer;
 }
 .nav-link{
   text-transform: uppercase;
+  color: var(--light);
 }
 .nav-item .nav-link.router-link-exact-active{
   color: var(--primary);
