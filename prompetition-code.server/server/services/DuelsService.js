@@ -30,16 +30,27 @@ class DuelsService {
     return await dbContext.Duels.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
   }
 
-  async startDuel() {
-    const duels = await dbContext.Topics.find({ active: false })
-    const duelsLength = duels.length
-    const duelPicker = Math.floor(Math.random() * duelsLength)
-    const duelBody = duels[duelPicker].body
-    const duel = await dbContext.Duels.create({ body: duelBody })
-    socketService.messageRoom('general', 'get:duel', duel)
-    logger.log('howdy??')
-    logger.log(duelBody)
-    return duel
+  async startDuel(userId) {
+    const res = await dbContext.Duels.findOne({ userB: null })
+    if (res === null) {
+      const duels = await dbContext.Topics.find({ active: false })
+      const duelsLength = duels.length
+      const duelPicker = Math.floor(Math.random() * duelsLength)
+      const duelBody = duels[duelPicker].body
+      const duel = await dbContext.Duels.create({ body: duelBody, userA: { creatorId: userId } })
+      logger.log('room created')
+      logger.log(duelBody)
+      return duel
+    } else {
+      const join = await dbContext.Duels.findByIdAndUpdate(res._doc._id, { userB: { creatorId: userId } })
+      // socketService.messageRoom('general', 'get:duel', join)
+      logger.log('room joined')
+      return join
+    }
+  }
+
+  async test(id) {
+    socketService.messageRoom(id, 'get:test')
   }
 }
 export const duelsService = new DuelsService()

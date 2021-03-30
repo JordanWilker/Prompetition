@@ -82,7 +82,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
-import { socketService } from '../services/SocketsService'
+// import { socketService } from '../services/SocketsService'
 import { duelService } from '../services/DuelsService'
 import { alertService } from '../services/AlertService'
 export default {
@@ -90,7 +90,6 @@ export default {
   setup() {
     onMounted(() => {
       topicService.getTodaysTopic()
-      socketService.emit('join:room', 'general')
     })
     const state = reactive({
       topics: computed(() => AppState.topics),

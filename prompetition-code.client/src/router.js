@@ -36,6 +36,11 @@ const routes = [
     path: '/write/:topicId',
     name: 'Write',
     component: loadPage('WritePage')
+  },
+  {
+    path: '/duels/:id',
+    name: 'Duels',
+    component: loadPage('DuelsPage')
   }
 ]
 

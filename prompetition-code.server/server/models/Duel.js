@@ -7,13 +7,14 @@ const Duel = new Schema(
     body: { type: String, required: true },
     winnerId: { type: ObjectId, ref: 'Response' },
     startTime: { type: Number },
+    active: { type: Boolean, required: true, default: false },
     votable: { type: Boolean, required: true, default: false },
     timeAlloted: { type: Number, required: true, default: 300000 },
     endTime: { type: Number },
     endVotingTime: { type: Number },
     userA: new mongoose.Schema({
       creatorId: { type: String, ref: 'Account' },
-      body: { type: String, required: true, default: '' },
+      body: { type: String, required: false, default: '' },
       votes: { type: Number, required: true, default: 0 }
     }),
     userB: new mongoose.Schema({

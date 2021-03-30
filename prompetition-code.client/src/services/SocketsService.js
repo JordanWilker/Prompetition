@@ -10,6 +10,7 @@ class SocketService extends SocketHandler {
       .on('remove:duel', this.removeDuel)
       .on('update:duel', this.updateDuel)
       .on('get:duel', this.getDuel)
+      .on('get:test', this.test)
   }
 
   authenticate(bearerToken) {
@@ -38,6 +39,10 @@ class SocketService extends SocketHandler {
   updateDuel(payload) {
     const index = AppState.duels.findIndex(p => p.id === payload.id)
     AppState.duels.splice(index, 1, payload)
+  }
+
+  test(payload) {
+    console.log('testing')
   }
 }
 

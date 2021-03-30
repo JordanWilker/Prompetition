@@ -8,10 +8,11 @@ export class DuelsController extends BaseController {
     super('api/duels')
     this.router
       .get('', this.getDuel)
-      .get('/startDuel', this.startDuel)
+      .get('/test/:id', this.test)
       .get('/:id', this.getDuelById)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('/startDuel', this.startDuel)
       .delete('/:id', this.deleteDuel)
       .put('/:id', this.editDuel)
   }
@@ -34,7 +35,7 @@ export class DuelsController extends BaseController {
 
   async startDuel(req, res, next) {
     try {
-      return res.send(await duelsService.startDuel())
+      return res.send(await duelsService.startDuel(req.userInfo.id))
     } catch (error) {
       next(error)
     }
@@ -57,5 +58,9 @@ export class DuelsController extends BaseController {
     } catch (error) {
       next(error)
     }
+  }
+
+  async test(req, res, next) {
+    return res.send(await duelsService.test(req.params.id))
   }
 }
