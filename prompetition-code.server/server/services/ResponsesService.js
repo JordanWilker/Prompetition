@@ -1,5 +1,5 @@
 import { dbContext } from '../db/DbContext'
-// import { BadRequest } from '../utils/Errors'
+import { BadRequest } from '../utils/Errors'
 
 class ResponsesService {
   async getResponsesbyTopicId(id, userId) {
@@ -21,7 +21,12 @@ class ResponsesService {
   }
 
   async editResponse(id, userId, body) {
-    return await dbContext.Responses.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
+    const edited = await dbContext.Responses.findOneAndUpdate({ topicId: id, creatorId: userId }, body, { new: true })
+    if (!edited) {
+      throw new BadRequest("Response didn't edit")
+    } else {
+      return edited
+    }
   }
 }
 export const responsesService = new ResponsesService()

@@ -7,7 +7,7 @@ const Schema = mongoose.Schema
 const Response = new Schema(
   {
     body: { type: String, required: true },
-    creatorId: { type: String, ref: 'Account' },
+    creatorId: { type: String, ref: 'Account', required: true },
     topicId: { type: String, ref: 'Topic', required: true },
     votes: { type: Number, required: true, default: 0 }
   },

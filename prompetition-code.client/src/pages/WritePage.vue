@@ -53,8 +53,8 @@ export default {
       // TODO: Get the prompt specified in the URL, and not always Daily Challenge
       await topicService.getTodaysTopic()
       await responseService.getResponsesByTopicId(route.params.topicId)
-      console.log('Responses', AppState.responses)
-      state.submission = AppState.responses[0].body
+      console.log('Responses', AppState.myResponse)
+      state.submission = AppState.myResponse.body
       // TODO: Get user's response to the prompt, and set the state.submission to it
       // Also, send the new submission to the server
 
@@ -63,6 +63,7 @@ export default {
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)
       state.timeLeft = new Date(AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+
       if (state.timeLeft < 0) {
         console.log('Submission period has ended')
         clearInterval(timer)
@@ -79,8 +80,9 @@ export default {
           topicId: route.params.topicId,
           votes: 0
         }
-        console.log(body)
-        if (!AppState.respondedToday) {
+
+        console.log('WritePage:', body)
+        if (AppState.myResponse.body === '' || !AppState.myResponse.body) {
           responseService.createResponse(body)
         } else {
           responseService.editResponse(body)
