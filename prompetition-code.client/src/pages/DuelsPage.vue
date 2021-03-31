@@ -1,12 +1,34 @@
 <template>
-  <div class="component text-light">
-    Duel
-    <button class="btn btn-danger" @click="test">
-      Testing
-    </button>
-    {{ state.duels.body }}
-    <textarea>
-    </textarea>
+  <div v-if="state.activeDuel.body">
+    <div class="component text-light">
+      Duel
+      <button class="btn btn-danger" @click="test">
+        Testing
+      </button>
+      {{ state.activeDuel.body }}
+      <!-- <div v-if="state.activeDuel.userA.creatorId== state.account.id"> -->
+      <form @submit.prevent="createUserBody">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Write Reply</label>
+          <textarea class="form-control" id="bodyA" rows="3" v-model="state.body"></textarea>
+        </div>
+        <button class="btn btn-success" type="submit">
+          Submit
+        </button>
+      </form>
+      <!-- </div> -->
+      <!-- <div v-else-if="state.activeDuel.userB.creatorId== state.account.id">
+        <form @submit.prevent="createUserBody">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Write ReplyBB</label>
+            <textarea class="form-control" id="bodyB" rows="3" v-model="state.activeDuel.userB.body"></textarea>
+          </div>
+          <button class="btn btn-success" type="submit">
+            Create
+          </button>
+        </form>
+      </div> -->
+    </div>
   </div>
 </template>
 
@@ -26,13 +48,20 @@ export default {
       duelService.getDuelById(route.params.id)
     })
     const state = reactive({
-      duels: computed(() => AppState.activeDuel)
+      body: '',
+      activeDuel: computed(() => AppState.activeDuel),
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user)
     })
     return {
       state,
       test() {
         duelService.test(route.params.id)
         console.log(AppState.activeDuel)
+      },
+      createUserBody() {
+        duelService.createUserBody(AppState.activeDuel, { body: state.body })
+        console.log('Pain in Making')
       }
     }
   },

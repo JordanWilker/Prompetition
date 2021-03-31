@@ -19,7 +19,7 @@ const Duel = new Schema(
     }),
     userB: new mongoose.Schema({
       creatorId: { type: String, ref: 'Account' },
-      body: { type: String, required: true, default: '' },
+      body: { type: String, required: false, default: '' },
       votes: { type: Number, required: true, default: 0 }
     })
   },
