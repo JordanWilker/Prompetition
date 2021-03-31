@@ -44,17 +44,21 @@ export default {
     const state = reactive({
       todaysTopic: computed(() => AppState.todaysTopic),
       submission: '',
+      isDailyChallenge: false,
       startDate: new Date(AppState.todaysTopic.challengeStartDate),
       submissionEndDate: AppState.todaysTopic.challengeStartDate + 86400000,
       timeLeft: AppState.todaysTopic.challengeStartDate + 86400000 - new Date()
     })
     const timer = setInterval(getTimeLeft, 200)
     onMounted(async() => {
-      await topicService.getTodaysTopic()
-      if (route.params.topicId) {
-        await responseService.getResponsesByTopicId(route.params.topicId)
-      } else if (route.name === 'Daily-Challenge') {
+      if (route.name === 'Daily-Challenge') {
+        await topicService.getTodaysTopic()
         await responseService.getDailyChallengeResponse()
+        state.isDailyChallenge = true
+      } else {
+        await topicService.getTopicById(route.params.topicId)
+        await responseService.getResponsesByTopicId(route.params.topicId)
+        state.isDailyChallenge = false
       }
 
       console.log('My Response:', AppState.myResponse)
@@ -85,7 +89,10 @@ export default {
           votes: 0
         }
 
-        // console.log('WritePage:', body)
+        if (state.isDailyChallenge) {
+          body.topicId = state.todaysTopic.id
+        }
+
         if (!AppState.myResponse) {
           responseService.createResponse(body)
         } else {

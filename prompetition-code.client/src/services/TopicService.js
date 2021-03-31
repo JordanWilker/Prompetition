@@ -14,9 +14,21 @@ class TopicService {
   }
 
   async getTodaysTopic() {
-    const res = await api.get('api/topics/dailyChallenge')
-    AppState.todaysTopic = new Topic(res.data)
-    console.log("Today's topic", res.data)
+    try {
+      const res = await api.get('api/topics/dailyChallenge')
+      AppState.todaysTopic = new Topic(res.data)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async getTopicById(id) {
+    try {
+      const res = await api.get('api/topics/' + id)
+      AppState.activeTopic = new Topic(res.data)
+    } catch (error) {
+      logger.error(error)
+    }
   }
 }
 

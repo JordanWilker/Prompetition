@@ -18,7 +18,7 @@ class ResponseService {
     try {
       const res = await api.get('api/topics/dailyChallenge/response')
       console.log(res.data)
-      AppState.myResponse = res.data
+      AppState.myResponse = new Response(res.data)
     } catch (error) {
       logger.error(error)
     }

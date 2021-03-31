@@ -11,8 +11,8 @@ export class ResponsesController extends BaseController {
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createResponse)
-      .delete('/:id', this.deleteResponse)
       .put('/:id', this.editResponse)
+      .delete('/:id', this.deleteResponse)
   }
 
   async createResponse(req, res, next) {
