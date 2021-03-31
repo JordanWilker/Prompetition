@@ -35,7 +35,7 @@
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { socketService } from '../services/SocketsService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { duelService } from '../services/DuelsService'
 import { AppState } from '../AppState'
 
@@ -43,6 +43,7 @@ export default {
   name: 'Component',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     onMounted(() => {
       socketService.emit('join:room', route.params.id)
       duelService.getDuelById(route.params.id)
@@ -61,7 +62,8 @@ export default {
       },
       createUserBody() {
         duelService.createUserBody(AppState.activeDuel, { body: state.body })
-        console.log('Pain in Making')
+        console.log('Bames Nonds having a stronk, call a bondulance')
+        router.push('list')
       }
     }
   },
