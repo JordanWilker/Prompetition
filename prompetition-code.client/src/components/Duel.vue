@@ -8,7 +8,7 @@
         </h6>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col" v-if="duel.userA && duel.userB">
           <p class="mb-0">
             {{ duel.userA.body }}
           </p>
