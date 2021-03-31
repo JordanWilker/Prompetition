@@ -52,9 +52,14 @@ export default {
     onMounted(async() => {
       // TODO: Get the prompt specified in the URL, and not always Daily Challenge
       await topicService.getTodaysTopic()
-      await responseService.getResponsesByTopicId(route.params.topicId)
+      // await responseService.getResponsesByTopicId(route.params.topicId)
+      await responseService.getResponsesByTopicId(AppState.todaysTopic.id)
+
       console.log('My Response:', AppState.myResponse)
       state.submission = AppState.myResponse ? AppState.myResponse.body : ''
+      console.log('startDate', state.startDate.getTime())
+      // console.log(new Date(AppState.todaysTopic.challengeStartDate).getTime())
+      // console.log(new Date().getTime())
     })
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)

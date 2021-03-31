@@ -2,10 +2,10 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
 class ResponsesService {
-  async getResponsesbyTopicId(id, userId) {
+  async getResponsesbyTopicId(id) {
     const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
     const topic = await dbContext.Topics.find({ _id: id })
-    if (topic.challengeStartDate + 86400000 < new Date()) {
+    if (topic.challengeStartDate + 86400000 < new Date().getTime()) {
       const response = responses.find(r => r.creatorId === userId)
       if (userId && response) { return response }
     }
@@ -27,6 +27,11 @@ class ResponsesService {
     } else {
       return edited
     }
+  }
+
+  async getDailyResponse(body) {
+    const response = await dbContext.Responses.findOne({ topicId: body.topicId, creatorId: body.creatorId })
+    return response
   }
 }
 export const responsesService = new ResponsesService()
