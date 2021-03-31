@@ -44,7 +44,7 @@
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </button>
         </div>
-        <router-link :to="{ name: 'Write', params: { topicId: state.todaysTopic.id }}">
+        <router-link :to="{ name: 'Daily-Challenge'}">
           <div class="row h-75 d-flex justify-content-center align-items-center">
             <i class="fa fa-calendar-plus-o text-light fa-5x text-shadow" aria-hidden="true"></i>
           </div>
@@ -82,7 +82,6 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
-// import { socketService } from '../services/SocketsService'
 import { duelService } from '../services/DuelsService'
 import { alertService } from '../services/AlertService'
 export default {

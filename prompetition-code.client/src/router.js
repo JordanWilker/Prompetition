@@ -39,6 +39,12 @@ const routes = [
     beforeEnter: authGuard
   },
   {
+    path: '/write/dailyChallenge',
+    name: 'Daily-Challenge',
+    component: loadPage('WritePage'),
+    beforeEnter: authGuard
+  },
+  {
     path: '/duels/:id',
     name: 'Duels',
     component: loadPage('DuelsPage')
