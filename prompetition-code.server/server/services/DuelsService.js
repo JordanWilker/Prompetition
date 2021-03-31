@@ -1,7 +1,7 @@
 import { dbContext } from '../db/DbContext'
 import socketService from '../services/SocketService'
 import { logger } from '../utils/Logger'
-// import { BadRequest } from '../utils/Errors'
+import { BadRequest } from '../utils/Errors'
 
 class DuelsService {
   async getDuel() {
@@ -10,7 +10,7 @@ class DuelsService {
   }
 
   async getDuelById(id) {
-    const duel = await dbContext.Duels.find({ _id: id })
+    const duel = await dbContext.Duels.findOne({ _id: id })
     return duel
   }
 
@@ -26,8 +26,22 @@ class DuelsService {
     return await dbContext.Duels.findOneAndDelete({ _id: id })
   }
 
-  async editDuel(id, userId, body) {
-    return await dbContext.Duels.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
+  async editDuelBody(id, userId, body) {
+    const duel = await dbContext.Duels.findById(id)
+    if (!duel) {
+      throw new BadRequest('invalid Duel Id')
+    }
+    if (duel.userA.creatorId === userId) {
+      duel.userA.body = body.body
+      duel.markModified('userA')
+    } else if (duel.userB.creatorId === userId) {
+      duel.userB.body = body.body
+      duel.markModified('userB')
+    } else {
+      throw new BadRequest('You are not in this duel')
+    }
+    await duel.save()
+    return duel
   }
 
   async startDuel(userId) {

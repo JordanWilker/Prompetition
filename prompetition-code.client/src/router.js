@@ -48,6 +48,11 @@ const routes = [
     path: '/duels/:id',
     name: 'Duels',
     component: loadPage('DuelsPage')
+  },
+  {
+    path: '/duels/list',
+    name: 'DuelsList',
+    component: loadPage('DuelsListPage')
   }
 ]
 

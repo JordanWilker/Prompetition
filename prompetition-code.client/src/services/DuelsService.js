@@ -14,8 +14,9 @@ class DuelService {
     }
   }
 
-  async getTodaysDuel() {
-    return await api.get('api/duels/dailyChallenge')
+  async getDuels() {
+    const res = await api.get('api/duels')
+    AppState.duels = res.data.map(d => new Duel(d))
   }
 
   async test(id) {
@@ -24,7 +25,11 @@ class DuelService {
 
   async getDuelById(id) {
     const res = await api.get(`api/duels/${id}`)
-    AppState.activeDuel = new Duel(res.data[0])
+    AppState.activeDuel = new Duel(res.data)
+  }
+
+  async createUserBody(duel, body) {
+    return await api.put(`api/duels/${duel.id}`, body)
   }
 }
 export const duelService = new DuelService()
