@@ -60,8 +60,8 @@ export default {
         duelService.test(route.params.id)
         console.log(AppState.activeDuel)
       },
-      createUserBody() {
-        duelService.createUserBody(AppState.activeDuel, { body: state.body })
+      async createUserBody() {
+        await duelService.createUserBody(AppState.activeDuel, { body: state.body })
         console.log('Bames Nonds having a stronk, call a bondulance')
         router.push('list')
       }
