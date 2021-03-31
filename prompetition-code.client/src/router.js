@@ -35,7 +35,14 @@ const routes = [
   {
     path: '/write/:topicId',
     name: 'Write',
-    component: loadPage('WritePage')
+    component: loadPage('WritePage'),
+    beforeEnter: authGuard
+  },
+  {
+    path: '/write/dailyChallenge',
+    name: 'Daily-Challenge',
+    component: loadPage('WritePage'),
+    beforeEnter: authGuard
   },
   {
     path: '/duels/:id',

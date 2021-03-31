@@ -12,9 +12,10 @@ export class TopicsController extends BaseController {
       .get('/dailyChallenge', this.getDailyChallenge)
       .get('/all', this.getAllTopics)
       .get('/:id', this.getTopicById)
+      .get('/:id/responses', this.getResponsesbyTopicId)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:id/responses', this.getResponsesbyTopicId)
+      .get('/dailyChallenge/response', this.getDailyChallengeResponse)
       .post('', this.createTopic)
       .post('/duels', this.getDuel)
       .delete('/:id', this.deleteTopic)
@@ -55,7 +56,7 @@ export class TopicsController extends BaseController {
 
   async getResponsesbyTopicId(req, res, next) {
     try {
-      return res.send(await responsesService.getResponsesbyTopicId(req.params.id, req.userInfo.id))
+      return res.send(await responsesService.getResponsesbyTopicId(req.params.id))
     } catch (error) {
       next(error)
     }
@@ -91,6 +92,17 @@ export class TopicsController extends BaseController {
   async getDailyChallenge(req, res, next) {
     try {
       return res.send(await topicsService.getDailyChallenge())
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getDailyChallengeResponse(req, res, next) {
+    try {
+      req.body.creatorId = req.userInfo.id
+      const topic = await topicsService.getDailyChallenge()
+      req.body.topicId = topic._id
+      return res.send(await responsesService.getDailyResponse(req.body))
     } catch (error) {
       next(error)
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="row d-flex">
+  <div class="row d-flex mb-3">
     <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
       <div class="col-12 topic-card">
         <div class="row d-flex">
@@ -29,18 +29,16 @@ export default {
 
 <style scoped>
 .topic-card {
-  margin: 2vh;
-  margin-left: 0vh;
   padding: 3vh;
   border: 2px solid gray;
   border-radius: 0px;
   font-family: 'Lato', sans-serif;
+  transition: 0.2s ease-in-out;
 }
 .topic-card:hover {
   cursor: pointer;
   background-color: #ffffff2c;
   transform: scale(0.99);
-  transition: 0.2s ease-in-out;
 }
 .topic-date {
   color: #27a9af;
