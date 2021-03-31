@@ -52,27 +52,20 @@ export default {
     onMounted(async() => {
       // TODO: Get the prompt specified in the URL, and not always Daily Challenge
       await topicService.getTodaysTopic()
-      getResponse()
-      setTimeout(getResponse, 2500)
-      // TODO: Get user's response to the prompt, and set the state.submission to it
-      // Also, send the new submission to the server
-
-      // NOTE: There are 86,400,000 milliseconds in one day
-    })
-    async function getResponse() {
       await responseService.getResponsesByTopicId(route.params.topicId)
-      console.log('Responses', AppState.myResponse)
-      state.submission = AppState.myResponse.body
-    }
+      console.log('My Response:', AppState.myResponse)
+      state.submission = AppState.myResponse ? AppState.myResponse.body : ''
+    })
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)
       state.timeLeft = new Date(AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      // NOTE: There are 86,400,000 milliseconds in one day
 
       if (state.timeLeft < 0) {
-        console.log('Submission period has ended')
+        window.alert('Submission period has ended')
         clearInterval(timer)
       } else if (state.timeLeft < 60000) {
-        // TODO: Alert the user to the small amount of time left
+        window.alert("Time's almost up!")
       }
     }
     return {
@@ -85,8 +78,8 @@ export default {
           votes: 0
         }
 
-        console.log('WritePage:', body)
-        if (!AppState.myResponse.body || AppState.myResponse.body === '') {
+        // console.log('WritePage:', body)
+        if (!AppState.myResponse) {
           responseService.createResponse(body)
         } else {
           responseService.editResponse(body)

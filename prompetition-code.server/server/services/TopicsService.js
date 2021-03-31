@@ -32,6 +32,7 @@ class TopicsService {
   async getDailyChallenge() {
     const date = new Date()
     console.log(date)
+    // TODO: Only return the user's own response for the daily challenge
     const res = await dbContext.Topics.findOne({ active: true, challengeStartDate: Date.parse(new Date().toDateString()) })
     if (res === null) {
       const topics = await dbContext.Topics.find({ active: false })

@@ -35,7 +35,8 @@ const routes = [
   {
     path: '/write/:topicId',
     name: 'Write',
-    component: loadPage('WritePage')
+    component: loadPage('WritePage'),
+    beforeEnter: authGuard
   },
   {
     path: '/duels/:id',
