@@ -1,6 +1,16 @@
 <template>
-  <div class="col-12">
+  <div class="col-sm-6" v-if="state.user.isAuthenticated">
+    <div class="row p-3 px-0 d-flex justify-content-between align-items-start">
+      <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
+    </div>
     <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
+    <div class="row add-row">
+      <!-- Onclick - Send to Write Page For Current Topic -->
+      <h5 class="mb-0 mr-3">
+        Add Response
+      </h5>
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </div>
   </div>
 </template>
 
@@ -10,26 +20,51 @@ import { AppState } from '../AppState'
 import { responseService } from '../services/ResponseService'
 import { useRoute } from 'vue-router'
 import { voteService } from '../services/VoteService'
+import { topicService } from '../services/TopicService'
 export default {
   name: 'Responses',
   setup() {
     const route = useRoute()
     onMounted(() => {
-      responseService.getResponsesByTopicId(route.params.topicId)
       if (!AppState.votes[0]) {
         voteService.getAllVotes()
+      }
+      if (!AppState.topics[0]) {
+        topicService.getTopics()
+      }
+      if (AppState.user.isAuthenticated) {
+        responseService.getResponsesByTopicId(route.params.topicId)
       }
     })
     const state = reactive({
       responses: computed(() => AppState.responses),
-      votes: computed(() => AppState.votes)
+      votes: computed(() => AppState.votes),
+      topics: computed(() => AppState.topics),
+      user: computed(() => AppState.user)
     })
     return {
-      state
+      state,
+      route
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.add-row {
+  padding: 2vh;
+  background-color: gray; /* For browsers that do not support gradients */
+  background-image: linear-gradient(rgb(145, 145, 145), rgb(65, 65, 65));
+  justify-content: center;
+  align-items: center;
+  color: var(--light);
+  transition: all 0.2s ease-in-out;
+}
+.add-row:hover {
+  cursor: pointer;
+  transform: scale(0.97);
+}
+.fa-plus {
+  font-size: 18pt;
+}
 </style>
