@@ -35,6 +35,7 @@ export class DuelsController extends BaseController {
 
   async startDuel(req, res, next) {
     try {
+      req.creatorId = req.userInfo.id
       return res.send(await duelsService.startDuel(req.userInfo.id))
     } catch (error) {
       next(error)

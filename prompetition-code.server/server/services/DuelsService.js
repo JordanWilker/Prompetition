@@ -45,7 +45,7 @@ class DuelsService {
   }
 
   async startDuel(userId) {
-    const res = await dbContext.Duels.findOne({ userB: null })
+    const res = await dbContext.Duels.findOne({ userB: null, 'userA.creatorId': { $ne: userId } })
     if (res === null) {
       const duels = await dbContext.Topics.find({ active: false })
       const duelsLength = duels.length
