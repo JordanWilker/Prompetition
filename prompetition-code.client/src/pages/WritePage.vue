@@ -51,6 +51,7 @@ export default {
     const router = useRouter()
     const state = reactive({
       todaysTopic: computed(() => AppState.todaysTopic),
+      activeTopic: computed(() => AppState.activeTopic),
       submission: '',
       isDailyChallenge: false,
       startDate: computed(() => AppState.todaysTopic.challengeStartDate),

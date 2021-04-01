@@ -4,7 +4,7 @@
       <div class="col-12 topic-card">
         <div class="row d-flex">
           <h6 class="topic-date">
-            {{ topic.challengeStartDate }}
+            {{ new Date(topic.challengeStartDate).toLocaleDateString() }}
           </h6>
         </div>
         <div class="row d-flex">
