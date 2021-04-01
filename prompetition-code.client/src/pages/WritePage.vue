@@ -1,31 +1,38 @@
 <template>
-  <div class="Write w-100">
-    <div class="row">
-      <div class="col">
-        <div>
-          <p>{{ state.todaysTopic.body }}</p>
+  <div class="row w-100">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="mb-4">
+            {{ state.todaysTopic.body }}
+          </h3>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        Time Remaining:
-        <div>
-          {{ new Date(state.timeLeft).toLocaleTimeString() }}
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <form class="w-100" @submit.prevent="submitResponse">
-          <label for="topicResponse">Your Response:</label>
-          <textarea name="topicResponse" v-model="state.submission" class="rounded"></textarea>
-          <div class="w-100">
-            <button type="submit" class="btn btn-primary ml-auto mt-1">
-              Submit
-            </button>
+      <div class="row">
+        <div class="col-12">
+          <div v-if="state.timeLeft">
+            {{ 'Time Remaining: ' + new Date(state.timeLeft).toLocaleTimeString() }}
           </div>
-        </form>
+          <div v-else>
+            Time Remaining Unknown
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <form @submit.prevent="submitResponse">
+            <div class="row d-flex justify-content-evenly pr-3">
+              <div class="col pr-0">
+                <textarea name="topicResponse" v-model="state.submission" class="rounded" placeholder="Write Response Here...">yo yo yo</textarea>
+              </div>
+              <div class="col-1 px-0">
+                <button type="submit" class="btn btn-primary h-100 w-100">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -107,10 +114,18 @@ export default {
 <style scoped lang="scss">
   textarea {
     display: block;
-    width: 100%;
     overflow: hidden;
-    resize:vertical;
+    resize: vertical;
     min-height: 40px;
-    max-width: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.671);
+    color: black;
+    padding: 2vh;
+  }
+  .col-6 {
+    border: 2px solid gray;
+    padding: 2vh;
+    color: var(--light);
+    height: min-content;
   }
 </style>
