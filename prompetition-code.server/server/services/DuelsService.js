@@ -46,19 +46,19 @@ class DuelsService {
 
   async startDuel(userId) {
     const res = await dbContext.Duels.findOne({ userB: null, 'userA.creatorId': { $ne: userId } })
+    logger.log(1)
     if (res === null) {
       const duels = await dbContext.Topics.find({ active: false })
       const duelsLength = duels.length
       const duelPicker = Math.floor(Math.random() * duelsLength)
       const duelBody = duels[duelPicker].body
       const duel = await dbContext.Duels.create({ body: duelBody, userA: { creatorId: userId } })
-      logger.log('room created')
-      logger.log(duelBody)
+      logger.log(2)
       return duel
     } else {
       const join = await dbContext.Duels.findByIdAndUpdate(res._doc._id, { userB: { creatorId: userId } })
       // socketService.messageRoom('general', 'get:duel', join)
-      logger.log('room joined')
+      logger.log(3)
       return join
     }
   }
