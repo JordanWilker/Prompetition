@@ -77,7 +77,7 @@ export default {
     })
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)
-      state.timeLeft = (AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      state.timeLeft = computed(() => (AppState.todaysTopic.challengeStartDate + 86400000 - new Date()))
       // NOTE: There are 86,400,000 milliseconds in one day
 
       if (state.timeLeft < 0) {
