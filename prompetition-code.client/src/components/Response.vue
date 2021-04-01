@@ -1,14 +1,17 @@
 <template>
   <div class="row mb-4">
     <div class="col-12 response-card">
-      <h6 class="row response-date mb-0">
-        {{ response.creator.name }}
-      </h6>
       <div class="row d-inline-flex justify-content-between align-items-center w-100">
-        <h5 class="text-cblue mb-0">
+        <h6 class="response-date mb-0">
+          {{ response.creator.name }}
+        </h6>
+        <i class="fa fa-ban fa-2x text-delete" aria-hidden="true" v-if="response.creator.name === state.user.name" @click="deleteResponse(response)"></i>
+      </div>
+      <div class="row d-inline-flex justify-content-between align-items-start w-100 mt-3">
+        <h5 class="col-10 text-cblue mb-0 pl-0">
           {{ response.body }}
         </h5>
-        <div class="d-inline-flex align-items-center heart-container bold">
+        <div class="col d-inline-flex align-items-center heart-container bold">
           <span class="text-light">{{ votes.length }}</span>
           <!-- Votes are extremely slow with current set-up. TODO: minimize vote api calls -->
           <i class="fa fa-heart fa-2x ml-2"
@@ -35,6 +38,7 @@ import { Response } from '../models/Response'
 import { AppState } from '../AppState'
 import { Vote } from '../models/Vote'
 import { voteService } from '../services/VoteService'
+import { responseService } from '../services/ResponseService'
 export default {
   name: 'Response',
   props: {
@@ -57,6 +61,9 @@ export default {
       },
       deleteVote(voteId) {
         voteService.deleteVote(voteId)
+      },
+      deleteResponse(response) {
+        responseService.deleteResponse(response)
       }
     }
   }
@@ -81,6 +88,9 @@ export default {
 .text-red {
   color: rgb(228, 0, 49);
 }
+.text-delete {
+  color: rgb(230, 0, 0);
+}
 .heart-container {
   /* background-color: rgba(255, 255, 255, 0.493); */
   border: 2px solid gray;
@@ -92,7 +102,7 @@ export default {
   justify-content: center;
   transition: all 0.4s ease-in-out;
 }
-.fa-heart:hover {
+.fa:hover {
   cursor: pointer;
   transform: scale(0.90);
 }

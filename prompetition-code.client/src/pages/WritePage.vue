@@ -6,8 +6,8 @@
           <h3 class="mb-4" v-if="route.name === 'Daily-Challenge'">
             {{ state.todaysTopic.body }}
           </h3>
-          <h3 v-else>
-            {{ state.topics.filter(t => t.id === route.params.topicId )[0].body }}
+          <h3 v-else-if="state.topics[0]">
+            {{ state.topics.filter(t => t.id === route.params.topicId )[0].body || 'placeholder' }}
           </h3>
         </div>
       </div>
@@ -41,13 +41,14 @@
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { topicService } from '../services/TopicService'
 import { responseService } from '../services/ResponseService.js'
 export default {
   name: 'Write',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const state = reactive({
       todaysTopic: computed(() => AppState.todaysTopic),
       submission: '',
@@ -68,7 +69,10 @@ export default {
         await responseService.getResponsesByTopicId(route.params.topicId)
         state.isDailyChallenge = false
       }
-
+      console.log(AppState.topics)
+      if (!AppState.topics[0]) {
+        await topicService.getTopics()
+      }
       console.log('My Response:', AppState.myResponse)
       state.submission = AppState.myResponse ? AppState.myResponse.body : ''
       // console.log('startDate', state.startDate.getTime())
@@ -106,6 +110,7 @@ export default {
         } else {
           responseService.editResponse(body)
         }
+        router.push({ name: 'Responses', topicId: state.topics.filter(t => t.id === route.params.topicId)[0].id })
       }
     }
   }

@@ -43,6 +43,15 @@ class ResponseService {
       logger.error(error)
     }
   }
+
+  async deleteResponse(response) {
+    try {
+      await api.delete('api/responses/' + response.id)
+      this.getResponsesByTopicId(response.topicId)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 
 export const responseService = new ResponseService()

@@ -3,11 +3,13 @@
     <div class="row p-3 px-0 d-flex justify-content-between align-items-start">
       <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
     </div>
-    <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
+    <div v-if="state.responses[0]">
+      <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
+    </div>
     <div class="row add-row" @click="moveToWritePage(state.topics.filter(t => t.id == route.params.topicId)[0])">
       <!-- Onclick - Send to Write Page For Current Topic -->
       <h5 class="mb-0 mr-3">
-        Add Response
+        {{ state.responses.filter(r => r.creator.name === state.user.name)[0] ? 'Edit Response' : 'Add Response' }}
       </h5>
       <i class="fa fa-plus" aria-hidden="true"></i>
     </div>
@@ -35,6 +37,9 @@ export default {
         topicService.getTopics()
       }
       if (AppState.user.isAuthenticated) {
+        responseService.getResponsesByTopicId(route.params.topicId)
+      }
+      if (!AppState.responses[0]) {
         responseService.getResponsesByTopicId(route.params.topicId)
       }
     })
