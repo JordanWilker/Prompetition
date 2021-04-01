@@ -10,11 +10,8 @@
     <div class="row">
       <div class="col">
         Time Remaining:
-        <div v-if="state.timeLeft">
+        <div>
           {{ new Date(state.timeLeft).toLocaleTimeString() }}
-        </div>
-        <div v-else>
-          0:00:00
         </div>
       </div>
     </div>
@@ -49,8 +46,8 @@ export default {
       submission: '',
       isDailyChallenge: false,
       startDate: computed(() => AppState.todaysTopic.challengeStartDate),
-      submissionEndDate: AppState.todaysTopic.challengeStartDate + 86400000,
-      timeLeft: (AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      submissionEndDate: computed(() => AppState.todaysTopic.challengeStartDate + 86400000),
+      timeLeft: 0
     })
     const timer = setInterval(getTimeLeft, 1000)
     onMounted(async() => {
