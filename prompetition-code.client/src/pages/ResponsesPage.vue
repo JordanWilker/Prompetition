@@ -4,7 +4,7 @@
       <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
     </div>
     <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
-    <div class="row add-row">
+    <div class="row add-row" @click="moveToWritePage(state.topics.filter(t => t.id == route.params.topicId)[0])">
       <!-- Onclick - Send to Write Page For Current Topic -->
       <h5 class="mb-0 mr-3">
         Add Response
@@ -18,13 +18,15 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { responseService } from '../services/ResponseService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { voteService } from '../services/VoteService'
+
 import { topicService } from '../services/TopicService'
 export default {
   name: 'Responses',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     onMounted(() => {
       if (!AppState.votes[0]) {
         voteService.getAllVotes()
@@ -44,7 +46,10 @@ export default {
     })
     return {
       state,
-      route
+      route,
+      moveToWritePage(topic) {
+        router.push({ name: 'Write', topicId: topic.id })
+      }
     }
   }
 }

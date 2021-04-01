@@ -3,18 +3,18 @@
     <div class="col-6">
       <div class="row">
         <div class="col-12">
-          <h3 class="mb-4">
-            {{ state.activeTopic.body }}
+          <h3 class="mb-4" v-if="route.name === 'Daily-Challenge'">
+            {{ state.todaysTopic.body }}
+          </h3>
+          <h3 v-else>
+            {{ state.topics.filter(t => t.id === route.params.topicId )[0].body }}
           </h3>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <div v-if="state.timeLeft">
+          <div v-if="state.timeLeft && route.name === 'Daily-Challenge'">
             {{ 'Time Remaining: ' + new Date(state.timeLeft).toLocaleTimeString() }}
-          </div>
-          <div v-else>
-            Time Remaining Unknown
           </div>
         </div>
       </div>
@@ -55,7 +55,8 @@ export default {
       isDailyChallenge: false,
       startDate: computed(() => AppState.todaysTopic.challengeStartDate),
       submissionEndDate: computed(() => AppState.todaysTopic.challengeStartDate + 86400000),
-      timeLeft: 0
+      timeLeft: 0,
+      topics: computed(() => AppState.topics)
     })
     const timer = setInterval(getTimeLeft, 1000)
     onMounted(async() => {
@@ -128,5 +129,6 @@ export default {
     padding: 2vh;
     color: var(--light);
     height: min-content;
+    margin: 2vh;
   }
 </style>
