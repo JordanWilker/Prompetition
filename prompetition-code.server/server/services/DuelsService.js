@@ -68,13 +68,11 @@ class DuelsService {
   }
 
   async increaseDuelVoteA(id) {
-    await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
-    this.getDuelById(id)
+    return await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
   }
 
   async increaseDuelVoteB(id) {
-    await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userB.votes': 1 } }, { new: true })
-    this.getDuelById(id)
+    return await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userB.votes': 1 } }, { new: true })
   }
 }
 export const duelsService = new DuelsService()

@@ -37,11 +37,13 @@ class DuelService {
   }
 
   async increaseDuelVoteA(duelId) {
-    return await api.put(`api/duels/${duelId}/a`)
+    await api.put(`api/duels/${duelId}/a`)
+    this.getDuelById(duelId)
   }
 
   async increaseDuelVoteB(duelId) {
-    return await api.put(`api/duels/${duelId}/b`)
+    await api.put(`api/duels/${duelId}/b`)
+    this.getDuelById(duelId)
   }
 }
 export const duelService = new DuelService()

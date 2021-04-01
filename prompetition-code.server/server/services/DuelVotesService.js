@@ -12,7 +12,7 @@ class DuelVotesService {
   }
 
   async deleteDuelVote(id, userId) {
-    return await dbContext.DuelVotes.findOneAndDelete({ _id: id, creatorId: userId })
+    return await dbContext.DuelVotes.findOneAndDelete({ _id: id })
   }
 
   async getAllDuelVotes() {
