@@ -1,14 +1,14 @@
 <template>
   <div class="row">
     <!-- <router-link :to="{ name: 'DuelInfo', params: { duelId: duel.id }}"> -->
-    <div class="col-12 duel-card">
+    <div class="col-12 duel-card" v-if="duel.userA && duel.userB">
       <div class="row d-flex">
         <h6 class="duel-date">
           {{ duel.body }}
         </h6>
       </div>
       <div class="row">
-        <div class="col" v-if="duel.userA && duel.userB">
+        <div class="col">
           <p class="mb-0">
             {{ duel.userA.body }}
           </p>
