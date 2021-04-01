@@ -10,8 +10,11 @@
     <div class="row">
       <div class="col">
         Time Remaining:
-        <div>
+        <div v-if="state.timeLeft">
           {{ new Date(state.timeLeft).toLocaleTimeString() }}
+        </div>
+        <div v-else>
+          0:00:00
         </div>
       </div>
     </div>
@@ -45,11 +48,11 @@ export default {
       todaysTopic: computed(() => AppState.todaysTopic),
       submission: '',
       isDailyChallenge: false,
-      startDate: new Date(AppState.todaysTopic.challengeStartDate),
+      startDate: computed(() => AppState.todaysTopic.challengeStartDate),
       submissionEndDate: AppState.todaysTopic.challengeStartDate + 86400000,
-      timeLeft: AppState.todaysTopic.challengeStartDate + 86400000 - new Date()
+      timeLeft: (AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
     })
-    const timer = setInterval(getTimeLeft, 200)
+    const timer = setInterval(getTimeLeft, 1000)
     onMounted(async() => {
       if (route.name === 'Daily-Challenge') {
         await topicService.getTodaysTopic()
@@ -69,7 +72,7 @@ export default {
     })
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)
-      state.timeLeft = new Date(AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      state.timeLeft = (AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
       // NOTE: There are 86,400,000 milliseconds in one day
 
       if (state.timeLeft < 0) {
