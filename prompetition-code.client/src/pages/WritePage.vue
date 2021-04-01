@@ -53,8 +53,8 @@ export default {
       submission: '',
       isDailyChallenge: false,
       startDate: computed(() => AppState.todaysTopic.challengeStartDate),
-      submissionEndDate: AppState.todaysTopic.challengeStartDate + 86400000,
-      timeLeft: (AppState.todaysTopic.challengeStartDate + 86400000 - new Date())
+      submissionEndDate: computed(() => AppState.todaysTopic.challengeStartDate + 86400000),
+      timeLeft: 0
     })
     const timer = setInterval(getTimeLeft, 1000)
     onMounted(async() => {
