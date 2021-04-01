@@ -68,7 +68,7 @@
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </button>
         </div>
-        <router-link :to="{ name: 'Topics' }">
+        <router-link :to="{ name: 'DuelsList' }">
           <div class="row h-75 d-flex justify-content-center align-items-center">
             <i class="fa fa-bolt text-light fa-5x text-shadow" aria-hidden="true"></i>
           </div>
