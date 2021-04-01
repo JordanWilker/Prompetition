@@ -1,48 +1,50 @@
 <template>
-  <div class="about text-center container">
+  <div class="text-center text-light container">
     <div class="row">
       <div class="col">
-        <div v-if="!state.editName" class="d-flex justify-content-center align-content-center">
-          <h1>
-            <span v-if="state.activeUser == account">Welcome</span>
-            {{ state.activeUser.name }}
-          </h1>
-          <button v-if="state.activeUser.id == account.id" class="btn btn-primary ml-3" @click="state.editName = !state.editName">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
+        <div class="row d-inline-flex align-items-center justify-content-center w-100">
+          <div class="col-sm-8">
+            <div v-if="!state.editName" class="d-flex justify-content-end align-content-center">
+              <h1>
+                <span v-if="state.activeUser == account">
+                  Welcome
+                </span>
+                {{ state.activeUser.name }}
+              </h1>
+              <i class="fa fa-pencil" aria-hidden="true" v-if="state.activeUser.id == account.id" @click="state.editName = !state.editName"></i>
+            </div>
+            <form v-else @submit.prevent="submitNewNickname">
+              <input type="text" name="username" placeholder="New Nickname... " v-model="state.newName">
+              <div>
+                <button class="btn btn-primary" type="submit">
+                  Submit
+                </button>
+                <button class="btn btn-primary" type="button" @click="state.editName = !state.editName">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-2">
+            <img class="rounded" :src="state.user.picture" alt="" />
+          </div>
         </div>
-        <form v-else @submit.prevent="submitNewNickname">
-          <label for="username" class="mr-2">New Nickname: </label>
-          <input type="text" name="username" :placeholder="account.name" v-model="state.newName">
-          <button class="btn btn-primary ml-3" type="submit">
-            Submit
-          </button>
-          <button class="btn btn-primary ml-3" type="button" @click="state.editName = !state.editName">
-            Cancel
-          </button>
-        </form>
-
-        <img class="rounded" :src="state.activeUser.picture" alt="" />
       </div>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <ul class="list-unstyled">
-          <!-- TODO: Get and display this user's wins, likes, and practice likes -->
-          <li>
-            <span>0</span>
-            Daily Wins
-          </li>
-          <li>
-            <span>0</span>
-            Competitive Likes
-          </li>
-          <li>
-            <span>0</span>
-            Practice Likes
-          </li>
-        </ul>
+    <div class="row d-inline-flex justify-content-between w-50 my-4">
+      <!-- TODO: Get and display this user's wins, likes, and practice likes -->
+      <div>
+        <span>0</span>
+        <i class="fa fa-trophy fa-2x" title="Daily Wins" aria-hidden="true"></i>
+      </div>
+      <div>
+        <span>0</span>
+        <i class="fa fa-heart fa-2x" title="Competitive Likes" aria-hidden="true"></i>
+      </div>
+      <div>
+        <span>0</span>
+        <i class="fa fa-heart-o fa-2x" title="Practice Likes" aria-hidden="true"></i>
       </div>
     </div>
 
@@ -58,19 +60,19 @@
       </div>
     </div>
 
-    <nav class="position-fixed w-100 p-0 bg-dark">
+    <nav class="position-fixed w-100 p-0 bg-custom text-cblue">
       <ul class="navbar-nav d-flex flex-row p-0 w-100 justify-content-around">
-        <li class="nav-item btn btn-dark">
+        <li class="nav-item btn">
           <a class="nav-link hoverable p-3 px-5" @click="changeState('wins')">
             Wins
           </a>
         </li>
-        <li class="nav-item btn btn-dark">
+        <li class="nav-item btn">
           <a class="nav-link hoverable p-3 px-5" @click="changeState('submissions')">
             Submissions
           </a>
         </li>
-        <li class="nav-item btn btn-dark">
+        <li class="nav-item btn">
           <a class="nav-link hoverable p-3 px-5" @click="changeState('practices')">
             Practice
           </a>
@@ -96,6 +98,7 @@ export default {
     const state = reactive({
       pageState: 'wins',
       activeUser: computed(() => AppState.activeUserView),
+      user: computed(() => AppState.user),
       editName: false,
       newName: AppState.account.name
     })
@@ -114,6 +117,7 @@ export default {
       },
       submitNewNickname() {
         accountService.editUserName(state.newName)
+        state.editName = false
       }
     }
   },
@@ -126,18 +130,49 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  border: 2px solid gray;
+  margin-top: 4vh;
+  padding: 3vh;
+  height: min-content;
+}
 img {
   max-width: 100px;
 }
 .nav-link {
   text-transform: capitalize;
 }
+input {
+  height: 42px;
+  border: 2px solid gray;
+  border-radius: 8px;
+}
 nav {
   bottom: 0;
   left: 0;
 }
-
+.fa-trophy {
+  color: gold;
+}
+.fa-heart {
+  color: rgb(228, 0, 49);
+}
+.fa-heart-o {
+  color: pink;
+}
+.fa {
+  margin-left: 1vh;
+}
+.fa:hover {
+  cursor: help;
+}
 li.nav-item {
   width: 33%
+}
+.bg-custom {
+  background-color: #01000a;
+}
+.text-cblue {
+  color: cornflowerblue;
 }
 </style>
