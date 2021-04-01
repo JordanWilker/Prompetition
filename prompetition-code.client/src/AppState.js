@@ -12,5 +12,6 @@ export const AppState = reactive({
   activeUserView: {},
   todaysTopic: {},
   duels: [],
-  activeDuel: {}
+  activeDuel: {},
+  duelVotes: []
 })
