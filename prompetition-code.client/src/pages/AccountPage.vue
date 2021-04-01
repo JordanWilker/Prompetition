@@ -1,33 +1,31 @@
 <template>
-  <div class="text-center text-light container">
+  <div class="col-md-6 box text-center text-light">
     <div class="row">
-      <div class="col">
-        <div class="row d-inline-flex align-items-center justify-content-center w-100">
-          <div class="col-sm-8">
-            <div v-if="!state.editName" class="d-flex justify-content-end align-content-center">
-              <h1>
-                <span v-if="state.activeUser == account">
-                  Welcome
-                </span>
-                {{ state.activeUser.name }}
-              </h1>
-              <i class="fa fa-pencil" aria-hidden="true" v-if="state.activeUser.id == account.id" @click="state.editName = !state.editName"></i>
+      <div class="row d-inline-flex align-items-center justify-content-center w-100">
+        <div class="col-sm-8">
+          <div v-if="!state.editName" class="d-flex justify-content-end align-content-center">
+            <h1>
+              <span v-if="state.activeUser == account">
+                Welcome
+              </span>
+              {{ state.activeUser.name }}
+            </h1>
+            <i class="fa fa-pencil" aria-hidden="true" v-if="state.activeUser.id == account.id" @click="state.editName = !state.editName"></i>
+          </div>
+          <form v-else @submit.prevent="submitNewNickname">
+            <input type="text" name="username" placeholder="New Nickname... " v-model="state.newName">
+            <div>
+              <button class="btn btn-primary" type="submit">
+                Submit
+              </button>
+              <button class="btn btn-primary" type="button" @click="state.editName = !state.editName">
+                Cancel
+              </button>
             </div>
-            <form v-else @submit.prevent="submitNewNickname">
-              <input type="text" name="username" placeholder="New Nickname... " v-model="state.newName">
-              <div>
-                <button class="btn btn-primary" type="submit">
-                  Submit
-                </button>
-                <button class="btn btn-primary" type="button" @click="state.editName = !state.editName">
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="col-sm-2">
-            <img class="rounded" :src="state.user.picture" alt="" />
-          </div>
+          </form>
+        </div>
+        <div class="col-sm-2">
+          <img class="rounded" :src="state.user.picture" alt="" />
         </div>
       </div>
     </div>
@@ -130,8 +128,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.box {
   border: 2px solid gray;
+  justify-content: start;
+  margin: 2vh;
   margin-top: 4vh;
   padding: 3vh;
   height: min-content;
