@@ -8,7 +8,7 @@ class ResponseService {
     try {
       const res = await api.get('api/topics/' + topicId + '/responses')
       AppState.responses = res.data.map(r => new Response(r))
-      // AppState.myResponse = AppState.responses.find(r => r.creator.id === AppState.account.id)
+      AppState.myResponse = AppState.responses.find(r => r.creator.id === AppState.account.id)
     } catch (err) {
       logger.error("Couldn't retrieve responses \n", err)
     }
@@ -17,7 +17,6 @@ class ResponseService {
   async getDailyChallengeResponse() {
     try {
       const res = await api.get('api/topics/dailyChallenge/response')
-      console.log(res.data)
       AppState.myResponse = res.data
     } catch (error) {
       logger.error(error)
@@ -27,7 +26,8 @@ class ResponseService {
   async createResponse(response) {
     try {
       console.log('ResponseService.createResponse:', response)
-      await api.post('api/responses/', response)
+      const res = await api.post('api/responses/', response)
+      AppState.myResponse = new Response(res.data)
       this.getResponsesByTopicId(response.topicId)
     } catch (error) {
       logger.error(error)
@@ -38,7 +38,6 @@ class ResponseService {
     try {
       console.log('ResponseService.editResponse:', response)
       await api.put('api/responses/' + response.topicId, response)
-      // console.log(res)
       this.getResponsesByTopicId(response.topicId)
     } catch (error) {
       logger.error(error)
