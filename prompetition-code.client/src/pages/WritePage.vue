@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12">
           <h3 class="mb-4">
-            {{ state.todaysTopic.body }}
+            {{ state.activeTopic.body }}
           </h3>
         </div>
       </div>
@@ -50,6 +50,7 @@ export default {
     const route = useRoute()
     const state = reactive({
       todaysTopic: computed(() => AppState.todaysTopic),
+      activeTopic: computed(() => AppState.activeTopic),
       submission: '',
       isDailyChallenge: false,
       startDate: computed(() => AppState.todaysTopic.challengeStartDate),

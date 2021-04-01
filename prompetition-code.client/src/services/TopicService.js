@@ -17,6 +17,7 @@ class TopicService {
     try {
       const res = await api.get('api/topics/dailyChallenge')
       AppState.todaysTopic = new Topic(res.data)
+      AppState.activeTopic = AppState.todaysTopic
     } catch (error) {
       logger.error(error)
     }
