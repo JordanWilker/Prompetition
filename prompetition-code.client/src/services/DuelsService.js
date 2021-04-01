@@ -31,5 +31,17 @@ class DuelService {
   async createUserBody(duel, body) {
     return await api.put(`api/duels/${duel.id}`, body)
   }
+
+  async createDuelVote(duelId) {
+    return await api.post('api/duelvotes', { duelId: duelId })
+  }
+
+  async increaseDuelVoteA(duelId) {
+    return await api.put(`api/duels/${duelId}/a`)
+  }
+
+  async increaseDuelVoteB(duelId) {
+    return await api.put(`api/duels/${duelId}/b`)
+  }
 }
 export const duelService = new DuelService()

@@ -6,7 +6,7 @@ const DuelVote = new Schema(
   {
     creatorId: { type: String, ref: 'Account', required: true },
     duelId: { type: ObjectId, ref: 'Response', required: true },
-    voteTarget: { type: String, required: true }
+    voteTarget: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

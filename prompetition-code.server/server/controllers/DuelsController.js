@@ -14,6 +14,8 @@ export class DuelsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('/startDuel', this.startDuel)
       .delete('/:id', this.deleteDuel)
+      .put('/:id/a', this.increaseDuelVoteA)
+      .put('/:id/b', this.increaseDuelVoteB)
       .put('/:id', this.editDuelBody)
   }
 
@@ -59,6 +61,15 @@ export class DuelsController extends BaseController {
     } catch (error) {
       next(error)
     }
+  }
+
+  async increaseDuelVoteA(req, res, next) {
+    req.body.creatorId = req.userInfo.id
+    return res.send(await duelsService.increaseDuelVoteA(req.params.id))
+  }
+
+  async increaseDuelVoteB(req, res, next) {
+    return res.send(await duelsService.increaseDuelVoteB(req.params.id))
   }
 
   async test(req, res, next) {

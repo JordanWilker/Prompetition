@@ -66,5 +66,15 @@ class DuelsService {
   async test(id) {
     socketService.messageRoom(id, 'get:test')
   }
+
+  async increaseDuelVoteA(id) {
+    await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
+    this.getDuelById(id)
+  }
+
+  async increaseDuelVoteB(id) {
+    await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userB.votes': 1 } }, { new: true })
+    this.getDuelById(id)
+  }
 }
 export const duelsService = new DuelsService()
