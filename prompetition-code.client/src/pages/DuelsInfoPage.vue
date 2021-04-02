@@ -16,7 +16,7 @@
         {{ state.duel.userA.body }}
         <div class="row">
           <div>
-            <button class="btn btn-success" @click="voteA">
+            <button class="btn btn-success" @click="voteA" v-if="state.duel.votable===true">
               Vote
             </button>
             {{ state.duel.userA.votes }}
@@ -27,10 +27,23 @@
         {{ state.duel.userB.body }}
         <div class="row">
           <div>
-            <button class="btn btn-success" @click="voteB">
+            <button class="btn btn-success" @click="voteB" v-if="state.duel.votable=== true">
               Vote
             </button>
             {{ state.duel.userB.votes }}
+          </div>
+        </div>
+        <div class="row">
+          <div v-if="state.duel.winnerId !== 'b' ">
+            <div v-if="state.duel.userA.creatorId == state.duel.winnerId">
+              Player 1 Wins!!!!
+            </div>
+            <div v-else-if="state.duel.userB.creatorId == state.duel.winnerId">
+              Player 2 Wins!!!!
+            </div>
+            <div v-else>
+              It is a Tie!!!!
+            </div>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { BadRequest } from '../utils/Errors'
 
 class DuelsService {
   async getDuel() {
-    const duel = await dbContext.Duels.find()
+    const duel = await dbContext.Duels.find().populate('creator')
     return duel
   }
 
@@ -52,7 +52,8 @@ class DuelsService {
       const duelsLength = duels.length
       const duelPicker = Math.floor(Math.random() * duelsLength)
       const duelBody = duels[duelPicker].body
-      const duel = await dbContext.Duels.create({ body: duelBody, userA: { creatorId: userId } })
+      const date = new Date().getTime()
+      const duel = await dbContext.Duels.create({ body: duelBody, startTime: date, winnerId: 'b', userA: { creatorId: userId } })
       logger.log(2)
       return duel
     } else {
@@ -68,11 +69,47 @@ class DuelsService {
   }
 
   async increaseDuelVoteA(id) {
-    return await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
+    const res = await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
+    if (res.startTime <= new Date().getTime() - 3000) {
+      res.votable = false
+      res.markModified('votable')
+      if (res.userB.votes > res.userA.votes) {
+        res.winnerId = res.userB.creatorId
+        res.markModified('winnerId')
+      } else if (res.userA.votes > res.userB.votes) {
+        res.winnerId = res.userA.creatorId
+        res.markModified('winnerId')
+      } else {
+        res.winnerId = 'Tie'
+        res.markModified('winnerId')
+      }
+      res.save()
+    }
   }
 
   async increaseDuelVoteB(id) {
-    return await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userB.votes': 1 } }, { new: true })
+    const res = await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userB.votes': 1 } }, { new: true })
+    logger.log(res)
+    logger.log(res.startTime)
+    logger.log(new Date().getTime())
+    if (res.startTime <= new Date().getTime() - 3000) {
+      res.votable = false
+      res.markModified('votable')
+      await res.save()
+      if (res.userB.votes > res.userA.votes) {
+        res.winnerId = res.userB.creatorId
+        res.markModified('winnerId')
+        await res.save()
+      } else if (res.userA.votes > res.userB.votes) {
+        res.winnerId = res.userA.creatorId
+        res.markModified('winnerId')
+        await res.save()
+      } else {
+        res.winnerId = 'Tie'
+        res.markModified('winnerId')
+        await res.save()
+      }
+    }
   }
 }
 export const duelsService = new DuelsService()

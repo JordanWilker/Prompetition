@@ -2,6 +2,7 @@ export class Duel {
   constructor(data = {}) {
     this.id = data.id || data._id || 'placeholder id'
     this.body = data.body || 'test body'
+    this.winnerId = data.winnerId || 'b'
     this.votable = data.votable
     this.timeAlloted = data.timeAlloted
     this.userA = data.userA

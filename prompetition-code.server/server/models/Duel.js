@@ -1,14 +1,14 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
-const ObjectId = mongoose.SchemaTypes.ObjectId
+// const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const Duel = new Schema(
   {
     body: { type: String, required: true },
-    winnerId: { type: ObjectId, ref: 'Response' },
-    startTime: { type: Number },
+    winnerId: { type: String, ref: 'Account', required: true, default: 'b' },
+    startTime: { type: Number, required: true, default: 0 },
     active: { type: Boolean, required: true, default: false },
-    votable: { type: Boolean, required: true, default: false },
+    votable: { type: Boolean, required: true, default: true },
     timeAlloted: { type: Number, required: true, default: 300000 },
     endTime: { type: Number },
     endVotingTime: { type: Number },
