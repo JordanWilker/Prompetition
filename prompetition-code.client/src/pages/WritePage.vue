@@ -111,7 +111,12 @@ export default {
         } else {
           responseService.editResponse(body)
         }
-        router.push({ name: 'Responses', topicId: state.topics.filter(t => t.id === route.params.topicId)[0].id })
+        if (state.isDailyChallenge) {
+          router.push({ name: 'Home' })
+          window.alert('Please wait for the response period to end to begin voting')
+        } else {
+          router.push({ name: 'Responses', topicId: state.topics.filter(t => t.id === route.params.topicId)[0].id })
+        }
       }
     }
   }

@@ -97,7 +97,6 @@ export default {
     return {
       state,
       sendData() {
-        console.log('This is the Home Page')
         duelService.startDuel()
       },
       showInfo(num) {
