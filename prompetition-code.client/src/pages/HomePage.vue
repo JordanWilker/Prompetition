@@ -120,6 +120,8 @@ export default {
 .carousel-item {
   max-width: 75vh;
   max-height: 37vh;
+  height: auto;
+  width: auto;
 }
 .panel-button {
   height: 35vh;

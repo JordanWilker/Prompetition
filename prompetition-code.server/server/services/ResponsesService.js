@@ -37,7 +37,7 @@ class ResponsesService {
 
   async getAllResponses() {
     try {
-      return await dbContext.Responses.find()
+      return await dbContext.Responses.find().populate('creator')
     } catch (error) {
       logger.log(error)
     }
