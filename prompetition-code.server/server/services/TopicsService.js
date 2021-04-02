@@ -15,7 +15,7 @@ class TopicsService {
   }
 
   async getTopicById(id) {
-    const topic = await dbContext.Topics.find({ _id: id })
+    const topic = await dbContext.Topics.find({ _id: id }).populate('winner')
     return topic
   }
 

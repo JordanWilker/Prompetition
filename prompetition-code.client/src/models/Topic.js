@@ -4,7 +4,7 @@ export class Topic {
     this.body = data.body || 'test body'
     this.createdAt = data.createdAt || 'creation date unkown'
     this.challengeStartDate = data.challengeStartDate || 'challenge start date unknown'
-    this.winners = data.winnerResponseId || []
+    this.winners = data.winner || []
   }
 
   parseDate(givenTime) {
