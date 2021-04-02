@@ -111,5 +111,13 @@ class DuelsService {
       }
     }
   }
+
+  async getDuelWins(userId) {
+    try {
+      return await dbContext.Duels.find({ winnerId: userId })
+    } catch (error) {
+      logger.log(error)
+    }
+  }
 }
 export const duelsService = new DuelsService()

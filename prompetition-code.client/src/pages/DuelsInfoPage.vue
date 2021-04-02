@@ -11,7 +11,7 @@
         VOTE ON THE WINNER!!!
       </div>
     </div>
-    <div class="row" v-if="state.duel.userA">
+    <div class="row" v-if="state.duel.userA && state.duel.userB">
       <div class="col-6">
         {{ state.duel.userA.body }}
         <div class="row">

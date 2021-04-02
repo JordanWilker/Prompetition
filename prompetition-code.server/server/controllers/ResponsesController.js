@@ -8,6 +8,7 @@ export class ResponsesController extends BaseController {
     super('api/responses')
     this.router
       .get('/:id/votes', this.getVotesByResponseId)
+      .get('', this.getAllResponses)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createResponse)
@@ -45,6 +46,14 @@ export class ResponsesController extends BaseController {
   async getVotesByResponseId(req, res, next) {
     try {
       return res.send(await votesService.getVotesByResponseId(req.params.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAllResponses(req, res, next) {
+    try {
+      return res.send(await responsesService.getAllResponses)
     } catch (error) {
       next(error)
     }
