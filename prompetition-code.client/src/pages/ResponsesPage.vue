@@ -1,6 +1,6 @@
 <template>
-  <div class="col-sm-6" v-if="state.user.isAuthenticated">
-    <div class="row p-3 px-0 d-flex justify-content-between align-items-start">
+  <div class="col" v-if="state.user.isAuthenticated">
+    <div class="row my-4">
       <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
     </div>
     <div v-if="state.responses[0]">
@@ -29,7 +29,8 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
-    onMounted(() => {
+    onMounted(async() => {
+      await topicService.getTopicById(route.params.topicId)
       if (!AppState.votes[0]) {
         voteService.getAllVotes()
       }
