@@ -111,7 +111,12 @@ export default {
         } else {
           responseService.editResponse(body)
         }
-        router.push({ name: 'Responses', topicId: state.topics.filter(t => t.id === route.params.topicId)[0].id })
+
+        if (route.params.topicId) {
+          router.push({ name: 'Responses', topicId: route.params.topicId })
+        } else {
+          router.push({ name: 'Home' })
+        }
       }
     }
   }
