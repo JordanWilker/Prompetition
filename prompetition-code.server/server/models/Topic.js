@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
-const ObjectId = mongoose.SchemaTypes.ObjectId
+// const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const Topic = new Schema(
   {
     body: { type: String, required: true },
     creatorId: { type: String, ref: 'Account', required: true },
     used: { type: Boolean, required: true, default: false },
-    winnerResponseId: { type: ObjectId, ref: 'Response' },
+    winnerResponseId: [{ type: String, ref: 'Response' }],
     challengeStartDate: { type: Number },
     active: { type: Boolean, required: true, default: false }
   },
