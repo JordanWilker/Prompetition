@@ -1,5 +1,6 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
+import { logger } from '../utils/Logger'
 
 class ResponsesService {
   async getResponsesbyTopicId(id) {
@@ -32,6 +33,14 @@ class ResponsesService {
   async getDailyResponse(body) {
     const response = await dbContext.Responses.findOne({ topicId: body.topicId, creatorId: body.creatorId })
     return response
+  }
+
+  async getAllResponses() {
+    try {
+      return await dbContext.Responses.find()
+    } catch (error) {
+      logger.log(error)
+    }
   }
 }
 export const responsesService = new ResponsesService()

@@ -8,6 +8,7 @@ export class DuelsController extends BaseController {
     super('api/duels')
     this.router
       .get('', this.getDuel)
+      .get('/duelwins', this.getDuelWins)
       .get('/test/:id', this.test)
       .get('/:id', this.getDuelById)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
@@ -74,5 +75,10 @@ export class DuelsController extends BaseController {
 
   async test(req, res, next) {
     return res.send(await duelsService.test(req.params.id))
+  }
+
+  async getDuelWins(req, res, next) {
+    req.body.creatorId = req.userInfo.id
+    return res.send(await duelsService.getDuelWins(req.userInfo.id))
   }
 }
