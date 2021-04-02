@@ -112,10 +112,11 @@ export default {
           responseService.editResponse(body)
         }
 
-        if (route.params.topicId) {
-          router.push({ name: 'Responses', topicId: route.params.topicId })
-        } else {
+        if (state.isDailyChallenge) {
           router.push({ name: 'Home' })
+          window.alert('Please wait for the response period to end to begin voting')
+        } else {
+          router.push({ name: 'Responses', topicId: route.params.topicId })
         }
       }
     }
