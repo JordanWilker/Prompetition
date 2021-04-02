@@ -88,7 +88,7 @@ import { useRoute } from 'vue-router'
 import UserWins from '../components/UserWins'
 import UserSubmissions from '../components/UserSubmissions'
 import UserPractices from '../components/UserPractices'
-import { voteService } from '../services/VoteService'
+import { responseService } from '../services/ResponseService'
 
 export default {
   name: 'Account',
@@ -109,7 +109,7 @@ export default {
       } else {
         state.activeUser = computed(() => AppState.account)
       }
-      await voteService.getAllVotes()
+      await responseService.getAllResponses()
     })
     return {
       state,
@@ -137,6 +137,7 @@ export default {
   justify-content: start;
   margin: 2vh;
   margin-top: 4vh;
+  margin-bottom: 10vh;
   padding: 3vh;
   height: min-content;
 }
