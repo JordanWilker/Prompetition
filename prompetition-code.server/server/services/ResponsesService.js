@@ -5,11 +5,6 @@ import { logger } from '../utils/Logger'
 class ResponsesService {
   async getResponsesbyTopicId(id) {
     const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
-    // const topic = await dbContext.Topics.find({ _id: id })
-    // if (topic.challengeStartDate + 86400000 < new Date().getTime()) {
-    //   const response = responses.find(r => r.creatorId === userId)
-    //   if (userId && response) { return response }
-    // }
     return responses
   }
 
