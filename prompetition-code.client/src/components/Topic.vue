@@ -1,16 +1,20 @@
 <template>
-  <router-link class="topic-card col-12" :to="{ name: 'Responses', params: { topicId: topic.id }}">
-    <div class="row d-flex">
-      <h6 class="topic-date">
-        {{ new Date(topic.challengeStartDate).toLocaleDateString() }}
-      </h6>
-    </div>
-    <div class="row d-flex">
-      <h4 class="mb-0">
-        {{ topic.body }}
-      </h4>
-    </div>
-  </router-link>
+  <div class="row d-flex mb-3">
+    <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
+      <div class="col-12 topic-card">
+        <div class="row d-flex m-2 mt-4">
+          <h6 class="topic-date">
+            {{ new Date(topic.challengeStartDate).toLocaleDateString() }}
+          </h6>
+        </div>
+        <div class="row d-flex m-2 mb-4">
+          <h4 class="mb-0">
+            {{ topic.body }}
+          </h4>
+        </div>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -26,7 +30,6 @@ export default {
 
 <style scoped>
 .topic-card {
-  padding: 3vh;
   border: 2px solid gray;
   border-radius: 0px;
   font-family: 'Lato', sans-serif;

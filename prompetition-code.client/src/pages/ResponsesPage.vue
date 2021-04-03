@@ -12,9 +12,9 @@
     <div class="row add-row" @click="moveToWritePage(state.topics.filter(t => t.id == route.params.topicId)[0])">
       <!-- Onclick - Send to Write Page For Current Topic -->
       <h5 class="mb-0 mr-3">
-        {{ state.responses.filter(r => r.creator.name === state.user.name)[0] ? 'Edit Response' : 'Add Response' }}
+        {{ state.responses.filter(r => r.creator.email === state.user.email)[0] ? 'Edit Response' : 'Add Response' }}
       </h5>
-      <i class="fa fa-plus" aria-hidden="true"></i>
+      <i class="fa" :class="state.responses.filter(r => r.creator.email === state.user.email)[0] ? 'fa-pencil' : 'fa-plus'" aria-hidden="true"></i>
     </div>
     <!-- This is for the competitive Responses -->
     <div>
@@ -80,6 +80,7 @@ export default {
 <style scoped lang="scss">
 .add-row {
   padding: 2vh;
+  margin-bottom: 3vh;
   background-color: gray; /* For browsers that do not support gradients */
   background-image: linear-gradient(rgb(145, 145, 145), rgb(65, 65, 65));
   justify-content: center;
