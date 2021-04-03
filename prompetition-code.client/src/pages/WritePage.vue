@@ -1,6 +1,6 @@
 <template>
-  <div class="row w-100">
-    <div class="col-6">
+  <div class="row w-100 d-flex">
+    <div class="col-sm-6">
       <div class="row">
         <div class="col-12">
           <h3 class="mb-4" v-if="route.name === 'Daily-Challenge'">
@@ -22,10 +22,10 @@
         <div class="col-12">
           <form @submit.prevent="submitResponse">
             <div class="row d-flex justify-content-evenly pr-3">
-              <div class="col pr-0">
+              <div class="col-sm pr-0">
                 <textarea name="topicResponse" v-model="state.submission" class="rounded" placeholder="Write Response Here...">yo yo yo</textarea>
               </div>
-              <div class="col-1 px-0">
+              <div class="col-sm-1 px-0">
                 <button type="submit" class="btn btn-primary h-100 w-100">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
@@ -135,11 +135,16 @@ export default {
     color: black;
     padding: 2vh;
   }
-  .col-6 {
+  .col-sm-6 {
     border: 2px solid gray;
     padding: 2vh;
     color: var(--light);
     height: min-content;
     margin: 2vh;
+  }
+  @media (max-width: 600px) {
+    .col-sm-1 {
+      margin-left: 2vh;
+    }
   }
 </style>

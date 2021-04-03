@@ -5,10 +5,10 @@
         <h6 class="response-date mb-0">
           {{ response.creator.name }}
         </h6>
-        <i class="fa fa-ban fa-2x text-delete" aria-hidden="true" v-if="response.creator.name === state.user.name" @click="deleteResponse(response)"></i>
+        <i class="fa fa-ban fa-2x text-delete" aria-hidden="true" v-if="response.creator.email === state.user.email" @click="deleteResponse(response)"></i>
       </div>
       <div class="row d-inline-flex justify-content-between align-items-start w-100 mt-3">
-        <h5 class="col-10 text-cblue mb-0 pl-0">
+        <h5 class="col-10 text-cblue mb-3 pl-0">
           {{ response.body }}
         </h5>
         <div class="col d-inline-flex align-items-center heart-container bold">
