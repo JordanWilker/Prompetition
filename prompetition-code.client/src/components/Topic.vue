@@ -1,20 +1,16 @@
 <template>
-  <div class="row d-flex mb-3">
-    <router-link :to="{ name: 'Responses', params: { topicId: topic.id }}">
-      <div class="col-12 topic-card">
-        <div class="row d-flex">
-          <h6 class="topic-date">
-            {{ new Date(topic.challengeStartDate).toLocaleDateString() }}
-          </h6>
-        </div>
-        <div class="row d-flex">
-          <h4 class="mb-0">
-            {{ topic.body }}
-          </h4>
-        </div>
-      </div>
-    </router-link>
-  </div>
+  <router-link class="topic-card col-12" :to="{ name: 'Responses', params: { topicId: topic.id }}">
+    <div class="row d-flex">
+      <h6 class="topic-date">
+        {{ new Date(topic.challengeStartDate).toLocaleDateString() }}
+      </h6>
+    </div>
+    <div class="row d-flex">
+      <h4 class="mb-0">
+        {{ topic.body }}
+      </h4>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -22,7 +18,8 @@ import { Topic } from '../models/Topic'
 export default {
   name: 'Topic',
   props: {
-    topic: { type: Object, default: () => new Topic() }
+    topic: { type: Object, default: () => new Topic() },
+    winners: { type: Object, default: () => new Response() }
   }
 }
 </script>

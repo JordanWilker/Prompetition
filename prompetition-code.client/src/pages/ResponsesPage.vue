@@ -39,7 +39,8 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
-    onMounted(() => {
+    onMounted(async() => {
+      await topicService.getTopicById(route.params.topicId)
       if (!AppState.votes[0]) {
         voteService.getAllVotes()
       }

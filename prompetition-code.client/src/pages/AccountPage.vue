@@ -33,15 +33,15 @@
     <div class="row d-inline-flex justify-content-between w-50 my-4">
       <!-- TODO: Get and display this user's wins, likes, and practice likes -->
       <div>
-        <span>0</span>
+        0
         <i class="fa fa-trophy fa-2x" title="Daily Wins" aria-hidden="true"></i>
       </div>
       <div>
-        <span>0</span>
+        0
         <i class="fa fa-heart fa-2x" title="Competitive Likes" aria-hidden="true"></i>
       </div>
       <div>
-        <span>0</span>
+        0
         <i class="fa fa-heart-o fa-2x" title="Practice Likes" aria-hidden="true"></i>
       </div>
     </div>
@@ -88,6 +88,7 @@ import { useRoute } from 'vue-router'
 import UserWins from '../components/UserWins'
 import UserSubmissions from '../components/UserSubmissions'
 import UserPractices from '../components/UserPractices'
+import { responseService } from '../services/ResponseService'
 
 export default {
   name: 'Account',
@@ -98,14 +99,17 @@ export default {
       activeUser: computed(() => AppState.activeUserView),
       user: computed(() => AppState.user),
       editName: false,
-      newName: AppState.account.name
+      newName: AppState.account.name,
+      responses: computed(() => AppState.responses),
+      votes: computed(() => AppState.votes)
     })
-    onMounted(() => {
+    onMounted(async() => {
       if (route.params.id) {
         accountService.getUser(route.params.id)
       } else {
         state.activeUser = computed(() => AppState.account)
       }
+      await responseService.getAllResponses()
     })
     return {
       state,
@@ -133,6 +137,7 @@ export default {
   justify-content: start;
   margin: 2vh;
   margin-top: 4vh;
+  margin-bottom: 10vh;
   padding: 3vh;
   height: min-content;
 }

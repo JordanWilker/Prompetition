@@ -23,6 +23,15 @@ class ResponseService {
     }
   }
 
+  async getAllResponses() {
+    try {
+      const res = await api.get('api/responses')
+      AppState.responses = res.data.map(r => new Response(r))
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   async createResponse(response) {
     try {
       console.log('ResponseService.createResponse:', response)

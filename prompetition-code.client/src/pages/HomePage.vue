@@ -1,31 +1,28 @@
 <template>
   <div class="col-sm-8">
-    <div class="row d-flex justify-content-center text-light my-5">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="row d-flex justify-content-center text-light my-3">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" title="Inspirational Images">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
-              <h6>Slide 1</h6>
+            <img src="https://raw.githubusercontent.com/JordanWilker/Prompetition/master/prompetition-code.client/src/assets/img/slide1.jpg" alt="First slide">
+            <div class="carousel-caption d-none d-md-block text-shadow">
+              <h6>from <span class="bold">Prompetition</span></h6>
             </div>
           </div>
-          <div class="carousel-item">
-            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="Second slide">
-            <div class="carousel-caption d-none d-md-block">
-              <h6>Slide 2</h6>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100 h-100" src="https://place-hold.it/800x400" alt="Third slide">
-            <div class="carousel-caption d-none d-md-block">
-              <h6>Slide 3</h6>
-            </div>
-          </div>
+          <CarouselImage v-for="image in state.images" :key="image.id" :img="image.urls.regular" :unsplashuser="image.user.name" />
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -37,7 +34,7 @@
         </a>
       </div>
     </div>
-    <div class="row d-flex justify-content-center mt-3">
+    <div class="row d-flex justify-content-center mb-3">
       <div class="col-sm m-2 panel-button hvr-underline-from-left bg-primary">
         <div class="row d-flex justify-content-end bg-lighter">
           <button class="info-button text-light" @click="showInfo(0)">
@@ -84,15 +81,20 @@ import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
 import { duelService } from '../services/DuelsService'
 import { alertService } from '../services/AlertService'
+import { unsplashService } from '../services/UnsplashService'
+import CarouselImage from '../components/CarouselImage.vue'
 export default {
+  components: { CarouselImage },
   name: 'Home',
   setup() {
     onMounted(() => {
       topicService.getTodaysTopic()
+      unsplashService.getImages()
     })
     const state = reactive({
       topics: computed(() => AppState.topics),
-      todaysTopic: computed(() => AppState.todaysTopic)
+      todaysTopic: computed(() => AppState.todaysTopic),
+      images: computed(() => AppState.images)
     })
     return {
       state,
@@ -109,20 +111,26 @@ export default {
 
 <style scoped lang="scss">
 .carousel-inner {
-  max-width: 800px;
-  max-height: 400px;
+  max-width: 75vh;
+  max-height: 37vh;
+  height: auto;
+  width: auto;
+  display: flex;
 }
-
+.carousel-item {
+  max-width: 75vh;
+  max-height: 37vh;
+  height: auto;
+  width: auto;
+}
 .panel-button {
-  height: 300px;
-  max-width: 300px;
+  height: 35vh;
+  width: 35vh;
   border-radius: 2px;
 }
-
 .bg-lighter {
   background-color: rgba(255, 255, 255, 0.5);
 }
-
 .info-button {
   background-color: #313130;
   border: none;
