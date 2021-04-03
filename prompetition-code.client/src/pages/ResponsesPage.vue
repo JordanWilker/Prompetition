@@ -4,7 +4,7 @@
       <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
     </div>
     <div>
-      Competitive Responses
+      Competitive Response
     </div>
     <div v-if="state.compResponses[0]">
       <Response v-for="response in state.compResponses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
