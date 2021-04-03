@@ -53,7 +53,7 @@ export class ResponsesController extends BaseController {
 
   async getAllResponses(req, res, next) {
     try {
-      return res.send(await responsesService.getAllResponses)
+      return res.send(await responsesService.getAllResponses())
     } catch (error) {
       next(error)
     }

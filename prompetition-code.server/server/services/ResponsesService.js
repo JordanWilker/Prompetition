@@ -4,7 +4,7 @@ import { logger } from '../utils/Logger'
 
 class ResponsesService {
   async getResponsesbyTopicId(id) {
-    const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
+    const responses = await dbContext.Responses.find({ topicId: id }).populate('creator, topicId')
     // const topic = await dbContext.Topics.find({ _id: id })
     // if (topic.challengeStartDate + 86400000 < new Date().getTime()) {
     //   const response = responses.find(r => r.creatorId === userId)
@@ -37,7 +37,7 @@ class ResponsesService {
 
   async getAllResponses() {
     try {
-      return await dbContext.Responses.find()
+      return await dbContext.Responses.find().populate('topicId')
     } catch (error) {
       logger.log(error)
     }

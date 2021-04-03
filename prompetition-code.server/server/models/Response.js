@@ -8,7 +8,7 @@ const Response = new Schema(
   {
     body: { type: String, required: true },
     creatorId: { type: String, ref: 'Account', required: true },
-    topicId: { type: String, ref: 'Topic', required: true },
+    topicId: { type: String, ref: 'Topics', required: true },
     votes: { type: Number, required: true, default: 0 }
   },
   { timestamps: true, toJSON: { virtuals: true } }

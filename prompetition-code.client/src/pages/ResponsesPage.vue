@@ -1,10 +1,13 @@
 <template>
-  <div class="col-sm-6" v-if="state.user.isAuthenticated">
+  <div class="col-sm-6 text-light" v-if="state.user.isAuthenticated">
     <div class="row p-3 px-0 d-flex justify-content-between align-items-start">
       <Topic :topic="state.topics.filter(t => t.id == route.params.topicId)[0]" />
     </div>
-    <div v-if="state.responses[0]">
-      <Response v-for="response in state.responses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
+    <div>
+      Competitive Responses
+    </div>
+    <div v-if="state.compResponses[0]">
+      <Response v-for="response in state.compResponses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
     </div>
     <div class="row add-row" @click="moveToWritePage(state.topics.filter(t => t.id == route.params.topicId)[0])">
       <!-- Onclick - Send to Write Page For Current Topic -->
@@ -12,6 +15,13 @@
         {{ state.responses.filter(r => r.creator.name === state.user.name)[0] ? 'Edit Response' : 'Add Response' }}
       </h5>
       <i class="fa fa-plus" aria-hidden="true"></i>
+    </div>
+    <!-- This is for the competitive Responses -->
+    <div>
+      Practice Responses
+    </div>
+    <div v-if="state.funResponses[0]">
+      <Response v-for="response in state.funResponses" :key="response.id" :response="response" :votes="state.votes.filter(v => v.responseId === response.id)" />
     </div>
   </div>
 </template>
@@ -45,6 +55,12 @@ export default {
     })
     const state = reactive({
       responses: computed(() => AppState.responses),
+      compResponses: computed(() => AppState.responses.filter(dateCheck => {
+        return Date.parse(new Date(dateCheck.createdAt).toDateString()) === dateCheck.topicId.challengeStartDate
+      })),
+      funResponses: computed(() => AppState.responses.filter(dateCheck => {
+        return Date.parse(new Date(dateCheck.createdAt).toDateString()) !== dateCheck.topicId.challengeStartDate
+      })),
       votes: computed(() => AppState.votes),
       topics: computed(() => AppState.topics),
       user: computed(() => AppState.user)

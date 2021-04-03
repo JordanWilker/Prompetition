@@ -1,31 +1,33 @@
 <template>
-  <div class="row mb-4">
-    <div class="col-12 response-card">
-      <div class="row d-inline-flex justify-content-between align-items-center w-100">
-        <h6 class="response-date mb-0">
-          {{ response.creator.name }}
-        </h6>
-        <i class="fa fa-ban fa-2x text-delete" aria-hidden="true" v-if="response.creator.name === state.user.name" @click="deleteResponse(response)"></i>
-      </div>
-      <div class="row d-inline-flex justify-content-between align-items-start w-100 mt-3">
-        <h5 class="col-10 text-cblue mb-0 pl-0">
-          {{ response.body }}
-        </h5>
-        <div class="col d-inline-flex align-items-center heart-container bold">
-          <span class="text-light">{{ votes.length }}</span>
-          <!-- Votes are extremely slow with current set-up. TODO: minimize vote api calls -->
-          <i class="fa fa-heart fa-2x ml-2"
-             :class="{ 'text-red': buttonLiked }"
-             aria-hidden="true"
-             @click="createVote(response.id)"
-             v-if="!(votes.filter(v => v.creator.email === state.user.email).length === 1)"
-          ></i>
-          <i class="fa fa-heart fa-2x ml-2"
-             :class="{ 'text-red': !buttonLiked }"
-             aria-hidden="true"
-             @click="deleteVote(votes.filter(v => v.creator.email === state.user.email)[0].id)"
-             v-else
-          ></i>
+  <div v-if="response.topicId.challengeStartDate >= Date.parse(new Date(response.createdAt).toDateString()) -86400000 ">
+    <div class="row mb-4">
+      <div class="col-12 response-card">
+        <div class="row d-inline-flex justify-content-between align-items-center w-100">
+          <h6 class="response-date mb-0">
+            {{ response.creator.name }}
+          </h6>
+          <i class="fa fa-ban fa-2x text-delete" aria-hidden="true" v-if="response.creator.name === state.user.name" @click="deleteResponse(response)"></i>
+        </div>
+        <div class="row d-inline-flex justify-content-between align-items-start w-100 mt-3">
+          <h5 class="col-10 text-cblue mb-0 pl-0">
+            {{ response.body }}
+          </h5>
+          <div class="col d-inline-flex align-items-center heart-container bold">
+            <span class="text-light">{{ votes.length }}</span>
+            <!-- Votes are extremely slow with current set-up. TODO: minimize vote api calls -->
+            <i class="fa fa-heart fa-2x ml-2"
+               :class="{ 'text-red': buttonLiked }"
+               aria-hidden="true"
+               @click="createVote(response.id)"
+               v-if="!(votes.filter(v => v.creator.email === state.user.email).length === 1)"
+            ></i>
+            <i class="fa fa-heart fa-2x ml-2"
+               :class="{ 'text-red': !buttonLiked }"
+               aria-hidden="true"
+               @click="deleteVote(votes.filter(v => v.creator.email === state.user.email)[0].id)"
+               v-else
+            ></i>
+          </div>
         </div>
       </div>
     </div>
@@ -46,11 +48,13 @@ export default {
     votes: { type: Array, default: v => new Vote(v) }
   },
   setup() {
+    const date = Date.parse(new Date('2021-04-01T17:01:05.013Z').toDateString())
     const state = reactive({
       user: computed(() => AppState.user)
     })
     return {
-      state
+      state,
+      date
     }
   },
   data() {

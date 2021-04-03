@@ -70,7 +70,7 @@ class DuelsService {
 
   async increaseDuelVoteA(id) {
     const res = await dbContext.Duels.findOneAndUpdate({ _id: id }, { $inc: { 'userA.votes': 1 } }, { new: true })
-    if (res.startTime <= new Date().getTime() - 3000) {
+    if (res.startTime <= new Date().getTime() - 86400000) {
       res.votable = false
       res.markModified('votable')
       if (res.userB.votes > res.userA.votes) {
@@ -92,7 +92,7 @@ class DuelsService {
     logger.log(res)
     logger.log(res.startTime)
     logger.log(new Date().getTime())
-    if (res.startTime <= new Date().getTime() - 3000) {
+    if (res.startTime <= new Date().getTime() - 86400000) {
       res.votable = false
       res.markModified('votable')
       await res.save()
