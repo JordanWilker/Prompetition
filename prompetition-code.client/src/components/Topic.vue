@@ -22,7 +22,8 @@ import { Topic } from '../models/Topic'
 export default {
   name: 'Topic',
   props: {
-    topic: { type: Object, default: () => new Topic() }
+    topic: { type: Object, default: () => new Topic() },
+    winners: { type: Object, default: () => new Response() }
   }
 }
 </script>
