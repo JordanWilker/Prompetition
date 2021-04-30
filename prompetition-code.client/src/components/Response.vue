@@ -81,18 +81,23 @@ export default {
   border-radius: 0px;
   font-family: 'Lato', sans-serif;
 }
+
 .bold {
   font-weight: bolder;
 }
+
 .text-cblue {
   color: cornflowerblue;
 }
+
 .text-red {
   color: rgb(228, 0, 49);
 }
+
 .text-delete {
   color: rgb(230, 0, 0);
 }
+
 .heart-container {
   /* background-color: rgba(255, 255, 255, 0.493); */
   border: 2px solid gray;
@@ -104,10 +109,12 @@ export default {
   justify-content: center;
   transition: all 0.4s ease-in-out;
 }
+
 .fa:hover {
   cursor: pointer;
   transform: scale(0.90);
 }
+
 .response-date {
   color: rgb(255, 192, 17);
 }

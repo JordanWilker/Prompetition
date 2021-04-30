@@ -2,8 +2,8 @@
   <div v-if="state.activeDuel.body">
     <div class="component text-light">
       Duel
-      <button class="btn btn-danger" @click="test">
-        Testing
+      <button class="btn btn-danger" @click="test" hidden>
+        TEsting
       </button>
       {{ state.activeDuel.body }}
       <!-- <div v-if="state.activeDuel.userA.creatorId== state.account.id"> -->

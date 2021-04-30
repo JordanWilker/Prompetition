@@ -1,6 +1,11 @@
 <template>
   <div class="col-12 text-light">
-    This is the page to "Vue" Duels
+    <h2>
+      Previous Duels
+      <button class="btn btn-success" @click="sendData">
+        Start Duel
+      </button>
+    </h2>
     <!-- <input type="date" name="date" id="date" class="my-3 rounded p-2 border border-dark"> -->
     <Duel v-for="duel in state.duels" :key="duel.id" :duel="duel" />
   </div>
@@ -20,7 +25,10 @@ export default {
       duels: computed(() => AppState.duels)
     })
     return {
-      state
+      state,
+      sendData() {
+        duelService.startDuel()
+      }
     }
   }
 }
