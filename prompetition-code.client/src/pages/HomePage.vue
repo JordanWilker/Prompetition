@@ -61,7 +61,7 @@
       </div>
       <div class="col-sm m-2 panel-button hvr-underline-from-left bg-warning">
         <div class="row d-flex justify-content-end bg-lighter">
-          <button class="info-button text-light" @click="sendData">
+          <button class="info-button text-light" @click="showInfo(2)">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </button>
         </div>
@@ -79,7 +79,6 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { topicService } from '../services/TopicService'
-import { duelService } from '../services/DuelsService'
 import { alertService } from '../services/AlertService'
 import { unsplashService } from '../services/UnsplashService'
 import CarouselImage from '../components/CarouselImage.vue'
@@ -98,9 +97,6 @@ export default {
     })
     return {
       state,
-      sendData() {
-        duelService.startDuel()
-      },
       showInfo(num) {
         alertService.showInfo(num)
       }
