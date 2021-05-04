@@ -1,3 +1,3 @@
-export const domain = 'ethanmmay.us.auth0.com'
-export const clientId = 'mxeG03HBHdR8JxET54cgc9LACW217eOB'
-export const audience = 'https://bcw-prompetition'
+export const domain = 'jordangwilkerson.us.auth0.com'
+export const clientId = 'xQv6xot7zKDVUPBKirsK8dwyAlyn9I0N'
+export const audience = 'https://prompetition.com'
