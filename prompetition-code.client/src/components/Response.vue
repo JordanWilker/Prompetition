@@ -46,13 +46,12 @@ export default {
     votes: { type: Array, default: v => new Vote(v) }
   },
   setup() {
-    const date = Date.parse(new Date('2021-04-01T17:01:05.013Z').toDateString())
     const state = reactive({
       user: computed(() => AppState.user)
     })
     return {
-      state,
-      date
+      state
+
     }
   },
   data() {

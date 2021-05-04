@@ -4,7 +4,7 @@ import { logger } from '../utils/Logger'
 
 class ResponsesService {
   async getResponsesByTopicId(id) {
-    const responses = await dbContext.Responses.find({ topicId: id }).populate('creator')
+    const responses = await dbContext.Responses.find({ topicId: id }).populate('creator topicId')
     return responses
   }
 
