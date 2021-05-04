@@ -70,15 +70,15 @@ export default {
         await responseService.getResponsesByTopicId(route.params.topicId)
         state.isDailyChallenge = false
       }
-      console.log(AppState.topics)
+      logger.log(AppState.topics)
       if (!AppState.topics[0]) {
         await topicService.getTopics()
       }
-      console.log('My Response:', AppState.myResponse)
+      logger.log('My Response:', AppState.myResponse)
       state.submission = AppState.myResponse ? AppState.myResponse.body : ''
-      // console.log('startDate', state.startDate.getTime())
-      // console.log(new Date(AppState.todaysTopic.challengeStartDate).getTime())
-      // console.log(new Date().getTime())
+      // logger.log('startDate', state.startDate.getTime())
+      // logger.log(new Date(AppState.todaysTopic.challengeStartDate).getTime())
+      // logger.log(new Date().getTime())
     })
     function getTimeLeft() {
       // TODO: Display time remaining as only hours minutes seconds, and not a time (AM, PM, etc)

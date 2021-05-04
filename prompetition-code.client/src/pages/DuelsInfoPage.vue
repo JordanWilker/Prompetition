@@ -70,7 +70,7 @@ export default {
       state,
       async voteA() {
         const res = await duelService.createDuelVote(state.duel.id)
-        console.log(res)
+        logger.log(res)
         if (await res.status === 200) {
           duelService.increaseDuelVoteA(state.duel.id)
         }

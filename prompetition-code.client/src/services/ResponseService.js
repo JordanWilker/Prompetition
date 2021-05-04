@@ -34,7 +34,7 @@ class ResponseService {
 
   async createResponse(response) {
     try {
-      console.log('ResponseService.createResponse:', response)
+      logger.log('ResponseService.createResponse:', response)
       const res = await api.post('api/responses/', response)
       AppState.myResponse = new Response(res.data)
       this.getResponsesByTopicId(response.topicId)
@@ -45,7 +45,7 @@ class ResponseService {
 
   async editResponse(response) {
     try {
-      console.log('ResponseService.editResponse:', response)
+      logger.log('ResponseService.editResponse:', response)
       await api.put('api/responses/' + response.topicId, response)
       this.getResponsesByTopicId(response.topicId)
     } catch (error) {

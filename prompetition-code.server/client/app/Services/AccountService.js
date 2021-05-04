@@ -6,7 +6,7 @@ class AccountService {
     try {
       const res = await api.get('/account')
       ProxyState.account = res.data
-      console.log(res.data)
+      logger.log(res.data)
     } catch (err) {
       console.error(err)
     }
